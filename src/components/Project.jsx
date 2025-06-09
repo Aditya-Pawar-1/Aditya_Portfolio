@@ -30,12 +30,12 @@ const Project = () => {
         gsap.to(mainbackground.current, {
             scrollTrigger: {
                 trigger: mainbackground.current,
-                start: '20% center',
-                end: '20% center',
-                scrub: 2,
-                  markers: true
+                start: '10% bottom',
+                end: '90% bottom',
+                scrub: 1,
+                //   markers: true
             },
-            backgroundColor: '#e64445',
+            backgroundColor: '#FFFFFF',
             ease: "cubic-bezier(0.65, 0.00, 0.45, 1.00)",
         })
         gsap.to(mainbackground.current, {
@@ -44,7 +44,7 @@ const Project = () => {
                 start: '90% center',
                 end: '90% center',
                 scrub: 2,
-                  markers: true
+                //   markers: true
             },
             backgroundColor: '#000',
             scale: .8,
@@ -67,7 +67,7 @@ const Project = () => {
     })
 
     return (
-        <div ref={mainbackground} >
+        <div ref={mainbackground} id="projects" >
             <div className="pl-[10%] mb-[5%]">
                 <div ref={line} className="h-0.5 w-[0] bg-white mt-8"></div>
                 <h2 className='text-[1.3rem] md:text-[2rem] py-2'>How Do I Bring Ideas to Life?</h2>

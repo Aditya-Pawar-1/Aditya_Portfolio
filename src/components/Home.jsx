@@ -2,7 +2,7 @@ import Drives from "./Drives";
 import Hero from "./Hero";
 import Intro from "./Intro";
 import Loader from "./Loader";
-// import Project from "./Project";
+import Project from "./Project";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <Hero />
       <Intro />
       <Drives />
-      {/* <Project /> */}
+      <Project />
     </div>
   )
 }

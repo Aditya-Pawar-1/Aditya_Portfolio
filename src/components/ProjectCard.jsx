@@ -47,7 +47,7 @@ const ProjectCard = ({ pathImg, heading, subheading }) => {
     }, { dependencies: [isopen] })
     return (
 
-        <div className="w-full h-full relative rounded-2xl overflow-hidden ">
+        <div className="w-full h-full relative rounded-2xl overflow-hidden border-2 border-black">
             <div ref={cover}
                 className='flex items-center justify-center min-w-[100%] h-[100%]  absolute bg-[#121212]'
                 onClick={handleOpen}>
@@ -58,11 +58,11 @@ const ProjectCard = ({ pathImg, heading, subheading }) => {
                     <img
                         className="h-[60%] lg:w-[60%] lg:min-h-[100%] object-cover"
                         src={pathImg} />
-                    <div className="text w-full pt-[5%] lg:pt-0 px-[2%]">
+                    <div className="text w-full pt-[10%] md:pt-[5%] lg:pt-0 px-[2%] pl-4">
                         <h2 className="text-[2rem] font-bold lg:text-[4rem] pb-[2%] lg:pb-0 leading-[1.2] lg:pt-5">{heading}</h2>
                         <p className="hidden md:block w-[90%] lg:w-[80%] text-base pb-[2%]">{subheading}</p>
-                        <button className="px-6 py-2 mr-4 mt-4 bg-black rounded">Live</button>
-                        <button className="px-6 py-2 mr-4 mt-4 bg-black rounded">Github</button>
+                        <button className="px-6 py-2 mr-4 mt-4 md:mt-2 bg-blue-800 rounded">Live</button>
+                        <button className="px-6 py-2 mr-4 mt-4 md:mt-2 bg-blue-800 rounded">Github</button>
                     </div>
                 </div>
             </div>
