@@ -21,7 +21,7 @@ const Layout = () => {
     return (
         <div className="bg-black font-poppins max-w-screen box-border min-h-screen text-white relative uppercase mx-auto select-none"
         >
-            <div className='w-full h-full top-0 absolute z-10'>
+            <div className='w-full top-0 absolute pointer-events-auto z-50'>
                 <Navbar />
             </div>
             <Outlet />

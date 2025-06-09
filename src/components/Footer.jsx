@@ -40,7 +40,7 @@ const Footer = () => {
             <span className="FooterChar inline-block">a</span>
           </div>
         </div>
-        <div className="w-[15%] text-[0.6rem] md:text[1.8rem] lg:text-base flex flex-col gap-2 justify-center">
+        <div className="w-[15%] text-[0.6rem] md:text[1.8rem] lg:text-base flex flex-col gap-2 justify-center cursor-pointer">
           <a
             href='mailto:aditya.pawar.dev@outlook.com'
           >
@@ -71,7 +71,7 @@ const Footer = () => {
       </div>
       <div className="h-[20%] relative">
         <p className="absolute text-[0.6rem] md:text[1.8rem] lg:text-base left-[1%] top-[40%]">All Rights Resevered © 2025</p>
-        <button onClick={handleTop} className="absolute ~cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base left-[80%] lg:left-[90%] top-[40%]">BACK TO TOP</button>
+        <button onClick={handleTop} className="absolute cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base left-[80%] lg:left-[90%] top-[40%]">BACK TO TOP</button>
       </div>
     </div>
   )

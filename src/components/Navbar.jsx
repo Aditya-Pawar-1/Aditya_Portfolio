@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div
       ref={navbarRef}
-      className="h-[20vh] overflow-y-hidden flex max-w-screen justify-between items-start"
+      className="max-h-[20vh] overflow-y-hidden flex max-w-screen justify-between items-start"
     >
       <div
         ref={menuRef}
@@ -51,7 +51,6 @@ const Navbar = () => {
           href="https://linkedin.com/in/aditya-pawar-dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="z-9999"
         >
           <img
             className="h-[5vh]"
