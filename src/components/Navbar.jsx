@@ -14,22 +14,22 @@ const Navbar = () => {
   return (
     <div
       ref={navbarRef}
-      className="max-h-[20vh] overflow-y-hidden flex max-w-screen justify-between items-start"
+      className="max-h-[20vh] overflow-y-hidden flex max-w-screen justify-between items-center w-full top-0 absolute pointer-events-auto z-50 px-4 md:px-12"
     >
       <div
         ref={menuRef}
-        className=' h-[15vh] flex items-center justify-between pt-12 px-12'
+        className=' h-[15vh] flex items-center justify-center'
       >
         <img src="/assets/Favicon/logo.svg" alt="logo" />
       </div>
-      <div className="flex pt-12 px-12 gap-4">
+      <div className="flex items-center justify-center gap-4">
         <a
           href="https://github.com/Aditya-Pawar-1"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
-            className="h-[5vh]"
+            className="h-[2rem]"
             src="assets/icons/github-142-svgrepo-com.svg"
             alt="github"
           />
@@ -41,7 +41,7 @@ const Navbar = () => {
           rel="noopener noreferrer"
         >
           <img
-            className="h-[5vh]"
+            className="h-[2rem]"
             src="assets/icons/gmail-svgrepo-com.svg"
             alt="gmail"
           />
@@ -53,7 +53,7 @@ const Navbar = () => {
           rel="noopener noreferrer"
         >
           <img
-            className="h-[5vh]"
+            className="h-[2rem]"
             src="assets/icons/linkedin-round-svgrepo-com.svg"
             alt="linkedin"
           />

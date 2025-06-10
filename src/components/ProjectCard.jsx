@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef, useState } from "react";
+import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
@@ -45,6 +46,7 @@ const ProjectCard = ({ pathImg, heading, subheading }) => {
             })
         }
     }, { dependencies: [isopen] })
+
     return (
 
         <div className="w-full h-full relative rounded-2xl overflow-hidden border-2 border-black">

@@ -10,15 +10,15 @@ gsap.registerPlugin(ScrollTrigger);
 const Project = () => {
 
     const Projects = [{
-        pathImg: '/assets/images/Project_Portal.svg',
+        pathImg: '/assets/images/Project_Portal.png',
         heading: 'Project Protal',
         subheading: 'The College Project Submission System provides a centralized, secure, and user-friendly platform for academic project management.'
     }, {
-        pathImg: '/assets/images/LostAndFound.svg',
+        pathImg: '/assets/images/LostAndFound.png',
         heading: 'Lost and Found',
         subheading: 'Website for addressing the Lost and Found needs of the college community. Created a user-friendly interface to facilitate the reporting and retrieval of lost items.'
     }, {
-        pathImg: '/assets/images/Recipe_Finder.svg',
+        pathImg: '/assets/images/Recipe_Finder.png',
         heading: 'Recipe Finder',
         subheading: 'Recipe Search Application allows users to search for recipes by name, view detailed recipe information, and save their Favorite recipes using TheMealDB API.'
     },]
