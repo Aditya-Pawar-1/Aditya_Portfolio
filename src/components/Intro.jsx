@@ -1,14 +1,13 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
-import { lazy } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense } from 'react';
 const IntroSpline = lazy(() => import('./IntroSpline'));
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
-const isMobile = window.innerWidth <= '768px' ? true : false;
 
 
 const Intro = () => {
@@ -18,6 +17,12 @@ const Intro = () => {
     const heading2 = useRef(null)
     const background = useRef(null)
     const mainbackground = useRef(null)
+    const [isMobile, setisMobile] = useState(false);
+
+    useEffect(() => {
+        if (window.innerWidth < 768)
+            setisMobile(true)
+    }, [isMobile])
 
 
     useGSAP(() => {
@@ -51,8 +56,8 @@ const Intro = () => {
         gsap.from(heading1.current, {
             scrollTrigger: {
                 trigger: heading1.current,
-                start: 'center center',
-                end: 'center 15%',
+                start: 'top center',
+                end: 'top 15%',
                 scrub: 1,
                 // markers: true,
                 duration: 1.5,
@@ -64,8 +69,8 @@ const Intro = () => {
         gsap.from(heading2.current, {
             scrollTrigger: {
                 trigger: heading2.current,
-                start: 'top center',
-                end: 'top 35%',
+                start: '-40% center',
+                end: '-30% 35%',
                 scrub: 1,
                 // markers: true,
                 duration: 1.5,
@@ -87,8 +92,22 @@ const Intro = () => {
                 },
                 scale: 1.5,
                 rotate: -25,
-                // x: '20vw'
             })
+
+            isMobile && gsap.to(background.current, {
+                scrollTrigger: {
+                    trigger: heading1.current,
+                    start: 'center center',
+                    end: '30% 15%',
+                    scrub: 4,
+                    // markers: true,
+                    duration: 1.5,
+                    ease: "power2.inOut",
+                },
+                scale: 1.5,
+                rotate: -25,
+            })
+
         }
     })
 
@@ -124,7 +143,20 @@ const Intro = () => {
                     ref={background}
                     className="h-[120vh] lg:h-[200vh] scale-110 w-[100vw]"
                 >
-                    <IntroSpline />
+                    {isMobile ? (
+                        <img src="/assets/images/Intro_Backgroud.jpg"
+                            alt="Intro Background"
+                            className="h-full w-full object-cover"
+                        />
+                    ) : (
+                        <Suspense fallback={
+                            <img src="/assets/images/Intro_Backgroud.jpg" alt="Intro Background"
+                                className="h-full w-full object-cover"
+                            />
+                        }>
+                            <IntroSpline />
+                        </Suspense>
+                    )}
                 </div>
             </div>
         </div>
