@@ -16,10 +16,11 @@ const Footer = () => {
     gsap.from('.FooterChar', {
       scrollTrigger: {
         trigger: '.FooterChar',
-        start: window.innerWidth > 1020 ? '40% 80%' : '5% 80%',
-        end: window.innerWidth > 1020 ? '45% 80%' : '5% 80%',
+        start: window.innerWidth > 980 ? '40% 80%' : '5% 80%',
+        end: window.innerWidth > 980 ? '45% 80%' : '5% 80%',
         scrub: 4,
         ease: "power4.in",
+        // markers: true
       },
       opacity: 0,
       delay: 1,

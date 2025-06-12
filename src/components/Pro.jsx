@@ -15,6 +15,11 @@ const Pro = () => {
         heading: 'Project Protal',
         subheading: 'The College Project Submission System provides a centralized, secure, and user-friendly platform for academic project management.',
         github: 'https://github.com/Aditya-Pawar-1/Project-Portal',
+    },{
+        pathImg: '/assets/images/AV_Chat.png',
+        heading: 'AV Chat',
+        subheading: 'AV-Chat is a WebRTC-based real-time video and chat application that enables users to connect instantly through video streaming and text messaging.',
+        github: 'https://github.com/Aditya-Pawar-1/AV-Chat',
     }, {
         pathImg: '/assets/images/LostAndFound.png',
         heading: 'Lost and Found',

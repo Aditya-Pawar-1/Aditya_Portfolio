@@ -9,7 +9,6 @@ gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 
-
 const Intro = () => {
 
     const line = useRef(null)

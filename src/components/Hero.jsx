@@ -20,7 +20,7 @@ const Home = () => {
       opacity: 0,
       duration: 1,
       stagger: 0.25,
-      delay: 2.25,
+      delay: 0.75,
       // ease: "bounce.out",
       easing: 'cubicBezier(.71,-0.77,.43,1.67)'
     },)
@@ -54,7 +54,7 @@ const Home = () => {
             <span className="char inline-block">y</span>
             <span className="char inline-block">a</span>
           </div>
-          <p className='self-end mr-12'>scroll</p>
+          {(window.innerWidth > 440) && <p className='self-end mr-12'>scroll</p>}
         </div>
         <div className='h-[100vh] w-full scale-125'>
           <Suspense>

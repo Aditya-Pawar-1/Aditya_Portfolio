@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { lazy } from 'react';
 const DrivesSpline = lazy(() => import('./DrivesSpline'));
 
@@ -14,6 +14,12 @@ const Drives = () => {
     const textspan = useRef();
     const background = useRef();
     const mainbackground = useRef();
+    const [isMobile, setisMobile] = useState(false);
+
+    useEffect(() => {
+        if (window.innerWidth < 768)
+            setisMobile(true)
+    }, [isMobile])
 
     const tl = gsap.timeline();
 
@@ -88,10 +94,17 @@ const Drives = () => {
     return (
         <div
             ref={mainbackground}
-            className="h-[100vh] lg:h-[150vh] relative overflow-hidden bg-black"
+            className="h-[80vh] lg:h-[150vh] relative overflow-hidden bg-black"
         >
-            <div ref={background} className='absolute scale-50 md:scale-75 lg:scale-90 -right-[150vw] md:-right-[80vw] lg:-right-[15vw]'>
-               <DrivesSpline />
+            <div ref={background} className='absolute scale-50 md:scale-75 lg:scale-90 -right-[60vw] md:-right-[80vw] lg:-right-[15vw]'>
+                {!isMobile && <DrivesSpline />}
+                {isMobile &&
+                    <>
+                        <img src="/assets/images/Drives_backgroud.gif"
+                            alt="Drives Section Background"
+                            className="object-contain h-[80vh] min-w-screen"
+                        />
+                    </>}
             </div>
             <div className='absolute w-full h-full top-0 '>
                 <div className="relative h-full">
