@@ -37,7 +37,7 @@ const Pro = () => {
     const mainbackground = useRef();
 
     useGSAP(() => {
-        { window.innerWidth > 380 &&
+        { window.innerWidth > 200 &&
             gsap.to(mainbackground.current, {
                 scrollTrigger: {
                     trigger: mainbackground.current,
@@ -45,7 +45,7 @@ const Pro = () => {
                     end: '90% center',
                     scrub: 2,
                 },
-                scale: .8,
+                scale: window.innerWidth < 500 ? 0.95 : 0.8,
                 duration: 1.5,
                 ease: "cubic-bezier(0.65, 0.00, 0.45, 1.00)",
             })
@@ -68,7 +68,7 @@ const Pro = () => {
 
     return (
         <div ref={mainbackground} id="projects" >
-            <div className="pl-[10%] mb-[5%]">
+            <div className="pl-[5%] md:pl-[10%] mb-[5%]">
                 <div ref={line} className="h-0.5 w-[0] bg-white mt-8"></div>
                 <h2 className='text-[1.3rem] md:text-[2rem] py-2'>How Do I Bring Ideas to Life?</h2>
             </div>
@@ -78,7 +78,7 @@ const Pro = () => {
                 {Projects.map((data, index) => (
                     <div
                         key={index}
-                        className="pb-4 md:pb-0 mb-[10vh] w-[80vw] rounded-2xl h-full">
+                        className="pb-4 md:pb-0 md:mb-[10vh] w-[80vw] rounded-2xl h-full">
                         <ProCard {...data} reverse={index % 2 !== 0} />
                     </div>
                 ))}

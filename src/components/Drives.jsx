@@ -15,6 +15,17 @@ const Drives = () => {
     const background = useRef();
     const mainbackground = useRef();
     const [isMobile, setisMobile] = useState(false);
+    const colors = ['#fdefd4', '#ffcdd2', '#bbdefb', '#c8e6c9', '#fff59d', '#d1c4e9'];
+
+    const handleColorChange = () => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        gsap.to(textspan.current.parentElement, {
+            backgroundColor: randomColor,
+            duration: 0.5,
+            ease: "power1.out"
+        });
+    };
+
 
     useEffect(() => {
         if (window.innerWidth < 768)
@@ -116,9 +127,13 @@ const Drives = () => {
                         ref={text}
                         className='absolute font-bold ml-[5vw] top-[30%] w-[50%] lg:w-[40%] text-[2rem] md:text-[3rem] lg:text-[4rem]'>
                         <h2>transforming ideas into </h2>
-                        <div className='bg-[#fdefd4] w-fit text-black px-[1.5rem] rounded-full overflow-hidden'>
-                            <h2 ref={textspan} className=''> interactive </h2>
+                        <div
+                            className='bg-[#fdefd4] w-fit text-black px-[1.5rem] rounded-full overflow-hidden cursor-pointer'
+                            onClick={handleColorChange}
+                        >
+                            <h2 ref={textspan}> interactive </h2>
                         </div>
+
                         <h2> web designs</h2>
                     </div>
                 </div>
