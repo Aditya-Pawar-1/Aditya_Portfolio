@@ -71,8 +71,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="h-[20%] relative">
-        <p className="absolute text-[0.6rem] md:text[1.8rem] lg:text-base left-[1%] top-[40%]">All Rights Resevered © 2025</p>
-        <button onClick={handleTop} className="absolute cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base left-[80%] lg:left-[90%] top-[40%]">BACK TO TOP</button>
+        <p className="absolute text-[0.6rem] md:text[1.8rem] lg:text-base left-[5%] top-[40%]">All Rights Resevered © 2025</p>
+        <button onClick={handleTop} className="absolute cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base left-[75%] lg:left-[90%] top-[40%]">BACK TO TOP</button>
       </div>
     </div>
   )

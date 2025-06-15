@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
-const Loader = React.lazy(() => import('./Loader'));
-const Hero = React.lazy(() => import('./Hero'));
+import Loader from './Loader';
+import Hero from './Hero';
 const Intro = React.lazy(() => import('./Intro'));
 const Drives = React.lazy(() => import('./Drives'));
 import Pro from './Pro';
@@ -9,19 +9,19 @@ import Pro from './Pro';
 
 const Home = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    // <Suspense fallback={<Loader />}>
       <div
         data-scroll
         data-scroll-speed="0.4"
       >
-
+        <Loader />
         <Hero />
         <Intro />
         <Drives />
         {/* <Project /> */}
         <Pro />
       </div>
-    </Suspense>
+    // </Suspense>
   );
 };
 
