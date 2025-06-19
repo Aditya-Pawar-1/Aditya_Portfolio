@@ -20,7 +20,9 @@ const Navbar = () => {
         ref={menuRef}
         className=' h-[15vh] flex items-center justify-center'
       >
+        <a href="/">
         <img src="/assets/Favicon/logo.svg" alt="logo" />
+        </a>
       </div>
       <div className="flex items-center justify-center gap-4">
         <a

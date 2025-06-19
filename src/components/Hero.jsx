@@ -22,7 +22,7 @@ const Home = () => {
       stagger: 0.25,
       delay: 0.75,
       // ease: "bounce.out",
-      easing: 'cubicBezier(.71,-0.77,.43,1.67)'
+      ease: 'cubicBezier(.71,-0.77,.43,1.67)'
     },)
 
     gsap.to(background.current, {
@@ -45,7 +45,7 @@ const Home = () => {
       className="overflow-hidden">
       <div
         className='relative'>
-        <div className="flex flex-col z-2 h-full w-full pb-20 md:pb-4 text-white absolute items-center justify-end pointer-events-none">
+        <div className="flex flex-col z-2 h-full w-full pb-14 md:pb-4 text-white absolute items-center justify-end pointer-events-none">
           <div ref={heading} className='text-[6rem] md:text-[12rem] lg:text-[16rem] font-semibold uppercase'>
             <span className="char inline-block">a</span>
             <span className="char inline-block">d</span>
@@ -54,11 +54,14 @@ const Home = () => {
             <span className="char inline-block">y</span>
             <span className="char inline-block">a</span>
           </div>
-          <p className='char self-end mr-12'>scroll</p>
+          <p className='char hidden sm:block self-end mr-12'>scroll</p>
         </div>
         <div className='h-[100vh] w-full scale-125'>
           <Suspense fallback={<div className="h-[100vh] w-full bg-black"></div>}>
-            <HeroSpline />
+            {window.innerWidth > 768
+              ? <HeroSpline />
+              : <img src="assets/images/Hero_Background.jpg" alt="Hero Mobile" className="h-[100vh] w-full object-contain" />
+            }
           </Suspense>
         </div>
       </div>

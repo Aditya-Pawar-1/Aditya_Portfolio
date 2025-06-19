@@ -20,6 +20,7 @@ const Footer = () => {
         end: window.innerWidth > 980 ? '45% 80%' : '5% 80%',
         scrub: 4,
         ease: "power4.in",
+        once: true,
         // markers: true
       },
       opacity: 0,

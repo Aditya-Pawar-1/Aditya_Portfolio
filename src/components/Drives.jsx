@@ -30,7 +30,7 @@ const Drives = () => {
     useEffect(() => {
         if (window.innerWidth < 768)
             setisMobile(true)
-    }, [isMobile])
+    }, [])
 
     const tl = gsap.timeline();
 
@@ -82,6 +82,7 @@ const Drives = () => {
                 // markers: true,
                 duration: 1.5,
                 ease: "power2.inOut",
+                once: isMobile
             },
             y: 200,
             x: 200,
@@ -95,6 +96,7 @@ const Drives = () => {
                 end: '-300% 75%',
                 duration: 1.5,
                 ease: "power2.inOut",
+                once: isMobile
                 // markers: true,
             },
             y: '30vh'

@@ -12,6 +12,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.10.12",
     "@tailwindcss/vite": "^4.0.6",
     "lenis": "^1.1.20",
     "motion": "^12.4.7",

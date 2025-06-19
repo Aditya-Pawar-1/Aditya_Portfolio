@@ -10,7 +10,7 @@ const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) =>
     const CardRef = useRef();
 
     useGSAP(() => {
-        // if (window.innerWidth < 768) return;
+        if (window.innerWidth < 768) return;
         gsap.from(CardRef.current, {
             scrollTrigger: {
                 trigger: CardRef.current,
@@ -43,11 +43,11 @@ const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) =>
             </div>
 
             {/* Text Section */}
-            <div className="w-full md:w-1/2 px-4 md:px-12 flex flex-col items-start justify-center md:text-left">
-                <h3 className="text-3xl sm:text-4xl lg:text-6xl font-semibold">
+            <div className="w-full md:w-1/2 px-4 lg:px-12 flex flex-col items-start justify-center md:text-left">
+                <h3 className="text-3xl lg:text-6xl font-semibold">
                     {heading}
                 </h3>
-                <p className="text-base sm:text-lg font-normal mt-4 max-w-[90%] sm:max-w-[80%] md:hidden lg:block">
+                <p className="text-base lg:text-lg font-normal mt-4  sm:max-w-[80%] md:max-w-[100%] ">
                     {subheading}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-4">
