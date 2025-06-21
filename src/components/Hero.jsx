@@ -45,7 +45,7 @@ const Home = () => {
       className="overflow-hidden">
       <div
         className='relative'>
-        <div className="flex flex-col z-2 h-full w-full pb-14 md:pb-4 text-white absolute items-center justify-end pointer-events-none">
+        <div className="flex flex-col z-2 h-full w-full pb-20 md:pb-4 text-white absolute items-center justify-end pointer-events-none">
           <div ref={heading} className='text-[6rem] md:text-[12rem] lg:text-[16rem] font-semibold uppercase'>
             <span className="char inline-block">a</span>
             <span className="char inline-block">d</span>
@@ -58,10 +58,15 @@ const Home = () => {
         </div>
         <div className='h-[100vh] w-full scale-125'>
           <Suspense fallback={<div className="h-[100vh] w-full bg-black"></div>}>
-            {window.innerWidth > 768
-              ? <HeroSpline />
-              : <img src="assets/images/Hero_Background.jpg" alt="Hero Mobile" className="h-[100vh] w-full object-contain" />
-            }
+            {window.innerWidth > 768 ? (
+              <HeroSpline />
+            ) : (
+              <div
+                className="h-[100vh] w-full bg-[url('/assets/images/Hero_Background.jpg')] bg-repeat bg-contain"
+                aria-label="Hero Mobile"
+              ></div>
+            )}
+
           </Suspense>
         </div>
       </div>

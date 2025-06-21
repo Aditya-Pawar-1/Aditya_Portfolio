@@ -5,6 +5,7 @@ import Hero from './Hero';
 const Intro = React.lazy(() => import('./Intro'));
 const Drives = React.lazy(() => import('./Drives'));
 import Pro from './Pro';
+import Skills from './Skills';
 // const Project = React.lazy(() => import('./Project')); // Uncomment if needed
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
         <Hero />
         <Intro />
         <Drives />
+        <Skills />
         {/* <Project /> */}
         <Pro />
       </div>

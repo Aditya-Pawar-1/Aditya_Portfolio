@@ -10,7 +10,7 @@ const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) =>
     const CardRef = useRef();
 
     useGSAP(() => {
-        if (window.innerWidth < 768) return;
+        // if (window.innerWidth < 768) return;
         gsap.from(CardRef.current, {
             scrollTrigger: {
                 trigger: CardRef.current,

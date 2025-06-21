@@ -19,7 +19,7 @@ const Layout = () => {
     }, [])
 
     return (
-        <div className="bg-black font-poppins max-w-screen box-border min-h-screen text-white relative uppercase mx-auto select-none"
+        <div className="bg-black overflow-hidden font-poppins max-w-screen box-border min-h-screen text-white relative uppercase mx-auto select-none"
         >
             <Navbar />
             <Outlet />
