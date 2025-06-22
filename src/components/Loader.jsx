@@ -18,13 +18,17 @@ const Loader = () => {
       ease: "power1.inOut",
     })
 
-    .to(containerRef.current, {
-      y: "-100%",
-      opacity: 0,
-      duration: 0.8,
-      ease: "power2.inOut",
-    }, "+=0.3");
-  }, []);
+      .call(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      })
+
+      .to(containerRef.current, {
+        y: "-100%",
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+      }, "+=0.3");
+  });
 
   return (
     <div

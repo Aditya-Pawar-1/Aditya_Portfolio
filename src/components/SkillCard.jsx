@@ -18,7 +18,7 @@ const SkillCard = ({ title, skill }) => {
                 scrub: 1,
                 once: true,
                 // markers: true,
-                duration: 1.5,
+                duration: 2.5,
                 ease: "power2.inOut",
             },
             y: "100%",
@@ -28,7 +28,7 @@ const SkillCard = ({ title, skill }) => {
     })
 
     return (
-        <div ref={cardRef} className='bg-[#0E0E0E] w-[80vw] md:w-[40vw] md:min-h-[50vh] p-4'>
+        <div ref={cardRef} className='bg-[#0E0E0E] w-[80vw] md:w-[40vw] p-4'>
             <h4 className='text-2xl md:text-4xl font-bold'>
                 {title}
             </h4>
