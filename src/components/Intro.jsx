@@ -140,7 +140,7 @@ const Intro = () => {
                 </div>
                 <div
                     ref={background}
-                    className="h-[120vh] lg:h-[200vh] scale-110 w-[100vw]"
+                    className="h-[120vh] lg:h-[200vh] scale-110 w-[100vw] will-change-transform"
                 >
                     {isMobile ? (
                         <img src="/assets/images/Intro_Backgroud.jpg"

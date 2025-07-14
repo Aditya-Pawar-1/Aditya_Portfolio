@@ -21,7 +21,7 @@ const Navbar = () => {
         className=' h-[15vh] flex items-center justify-center'
       >
         <a href="/">
-        <img src="/assets/Favicon/logo.svg" alt="logo" />
+          <img src="/assets/Favicon/logo.svg" alt="logo" />
         </a>
       </div>
       <div className="flex items-center justify-center gap-4">
@@ -38,7 +38,7 @@ const Navbar = () => {
         </a>
 
         <a
-          href="mailto:your-pawaraditya200410@gmail.com"
+          href="mailto:pawaraditya200410@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
         >

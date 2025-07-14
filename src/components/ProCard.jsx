@@ -6,7 +6,7 @@ import { useRef } from "react";
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
-const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) => {
+const ProCard = ({ pathImg, ImgheightD, ImgheightM, heading, subheading, github, liveLink, reverse }) => {
     const CardRef = useRef();
 
     useGSAP(() => {
@@ -37,7 +37,8 @@ const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) =>
             <div className="w-full md:w-1/2">
                 <img
                     src={pathImg}
-                    className="w-full h-full object-cover rounded-xl"
+                    className={`w-full h-full object-contain rounded-xl`}
+                    style={{ maxHeight: window.innerWidth > 768 ? ImgheightD : ImgheightM }}
                     alt="Project Mockup"
                 />
             </div>
@@ -47,7 +48,7 @@ const ProCard = ({ pathImg, heading, subheading, github, liveLink, reverse }) =>
                 <h3 className="text-3xl lg:text-6xl font-semibold">
                     {heading}
                 </h3>
-                <p className="text-base lg:text-lg font-normal mt-4  sm:max-w-[80%] md:max-w-[100%] ">
+                <p className="text-base normal-case lg:text-lg font-normal mt-4  sm:max-w-[80%] md:max-w-[100%] ">
                     {subheading}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-4">

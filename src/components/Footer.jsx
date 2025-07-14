@@ -1,15 +1,17 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 
 const Footer = () => {
 
   const handleTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    gsap.to(window, { scrollTo: 0, duration: 0.2 });
   }
 
   useGSAP(() => {
@@ -21,7 +23,6 @@ const Footer = () => {
         scrub: 4,
         ease: "power4.in",
         once: true,
-        // markers: true
       },
       opacity: 0,
       delay: 1,

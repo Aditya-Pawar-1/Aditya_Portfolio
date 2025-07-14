@@ -107,15 +107,15 @@ const Drives = () => {
     return (
         <div
             ref={mainbackground}
-            className="h-[80vh] lg:h-[150vh] relative overflow-hidden bg-black"
+            className="h-[100vh] lg:h-[150vh] relative overflow-hidden bg-black"
         >
-            <div ref={background} className='absolute scale-50 md:scale-75 lg:scale-90 -right-[60vw] md:-right-[80vw] lg:-right-[15vw]'>
+            <div ref={background} className='absolute will-change-transform scale-50 md:scale-75 lg:scale-90 -right-[60vw] md:-right-[80vw] lg:-right-[15vw]'>
                 {!isMobile && <DrivesSpline />}
                 {isMobile &&
                     <>
                         <img src="/assets/images/Drives_backgroud.gif"
                             alt="Drives Section Background"
-                            className="object-contain h-[80vh] mt-[25vh] lg:mt-[0] min-w-screen"
+                            className="object-contain h-[100vh] mt-[25vh] lg:mt-[0] min-w-screen"
                         />
                     </>}
             </div>

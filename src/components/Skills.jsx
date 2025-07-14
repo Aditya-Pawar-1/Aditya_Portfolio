@@ -9,73 +9,73 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
   const data = [
-  {
-    title: "Frontend Development",
-    skill: [
-      "HTML",
-      "CSS & Tailwind CSS",
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "GSAP & Framer Motion"
-    ]
-  },
-  {
-    title: "Backend Development",
-    skill: [
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "MySQL",
-      "WebSockets",
-      "WebRTC"
-    ]
-  },
-  {
-    title: "UI/UX Design",
-    skill: [
-      "Wireframing",
-      "Prototyping",
-      "Layout Design",
-      "UI Design",
-      "Responsive Design",
-      "Web & Mobile Design"
-    ]
-  },
-  {
-    title: "Tools & Platforms",
-    skill: [
-      "Figma",
-      "Git & GitHub",
-      "Visual Studio Code",
-      "Vercel",
-      "Postman",
-      "ESLint"
-    ]
-  },
-  {
-    title: "Programming & Technical",
-    skill: [
-      "C / C++",
-      "Java",
-      "Python",
-      "Data Structures & Algorithms",
-      "Object-Oriented Programming",
-      "System Design"
-    ]
-  },
-  {
-    title: "Soft Skills",
-    skill: [
-      "Presentation",
-      "Collaboration",
-      "Teamwork",
-      "Time Management",
-      "Adaptability",
-      "Problem Solving"
-    ]
-  }
-];
+    {
+      title: "Frontend Development",
+      skill: [
+        "HTML",
+        "CSS & Tailwind CSS",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "GSAP & Framer Motion"
+      ]
+    },
+    {
+      title: "Backend Development",
+      skill: [
+        "Node.js",
+        "Express.js",
+        "MongoDB and MySQL Databases",
+        "REST APIs",
+        "JWT & Authentication",
+        "MVC Architecture"
+      ]
+    },
+    {
+      title: "UI/UX Design",
+      skill: [
+        "User Research",
+        "Wireframing & Prototyping",
+        "Layout & Visual Design",
+        "Responsive Design",
+        "Web & Mobile Design",
+        "Interaction Design",
+      ]
+    },
+    {
+      title: "Tools & Platforms",
+      skill: [
+        "Figma",
+        "Git & GitHub",
+        "Visual Studio Code",
+        "Vercel",
+        "Postman",
+        "ESLint"
+      ]
+    },
+    {
+      title: "Programming & Technical",
+      skill: [
+        "C / C++",
+        "Java",
+        "Python",
+        "Database Management System",
+        "Data Structures & Algorithms",
+        "Object-Oriented Programming",
+      ]
+    },
+    {
+      title: "Soft Skills",
+      skill: [
+        "Presentation",
+        "Collaboration",
+        "Teamwork",
+        "Time Management",
+        "Adaptability",
+        "Problem Solving"
+      ]
+    }
+  ];
 
   const line = useRef();
   useGSAP(() => {

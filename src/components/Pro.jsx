@@ -2,7 +2,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef } from "react";
-// import ProjectCard from "./ProjectCard";
 import ProCard from "./ProCard";
 
 gsap.registerPlugin(useGSAP);
@@ -15,11 +14,18 @@ const Pro = () => {
         heading: 'Project Protal',
         subheading: 'The College Project Submission System provides a centralized, secure, and user-friendly platform for academic project management.',
         github: 'https://github.com/Aditya-Pawar-1/Project-Portal',
-    },{
-        pathImg: '/assets/images/AV_Chat.png',
-        heading: 'AV Chat',
-        subheading: 'AV-Chat is a WebRTC-based real-time video and chat application that enables users to connect instantly through video streaming and text messaging.',
-        github: 'https://github.com/Aditya-Pawar-1/AV-Chat',
+    }, {
+        pathImg: '/assets/images/SM_Home.png',
+        heading: 'ScholarMind',
+        subheading: 'ScholarMind is a mobile application specifically designed to help students manage their study schedules, track their progress, and achieve their academic goals effectively.',
+        github: 'https://github.com/Aditya-Pawar-1/ScholarMind-main',
+        ImgheightD: '70vh',
+        ImgheightM: '50vh'
+    }, {
+        pathImg: '/assets/images/Real_Estate_Website_Case_Study.png',
+        heading: 'UI/UX Case Study',
+        subheading: 'UI/UX case study detailing the design process for a user-centric digital real estate rental platform, focusing on enhancing property search, communication, and rental management for a seamless user experience.',
+        github: 'https://github.com/Aditya-Pawar-1/ScholarMind-main',
     }, {
         pathImg: '/assets/images/LostAndFound.png',
         heading: 'Lost and Found',

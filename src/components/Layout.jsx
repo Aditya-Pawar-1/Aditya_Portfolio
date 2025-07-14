@@ -1,9 +1,9 @@
-import Footer from "./Footer";
+import { useEffect } from "react";
 import { Outlet } from "react-router"
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import Lenis from 'lenis'
-import { useEffect } from "react";
-import 'lenis/dist/lenis.css'
+import '../Lenis.css'
 
 const Layout = () => {
 

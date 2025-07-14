@@ -56,7 +56,7 @@ const Home = () => {
           </div>
           <p className='char hidden sm:block self-end mr-12'>scroll</p>
         </div>
-        <div className='h-[100vh] w-full scale-125'>
+        <div className='h-[100vh] w-full scale-125 will-change-transform'>
           <Suspense fallback={<div className="h-[100vh] w-full bg-black"></div>}>
             {window.innerWidth > 768 ? (
               <HeroSpline />
