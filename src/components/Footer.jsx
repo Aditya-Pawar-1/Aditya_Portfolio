@@ -1,18 +1,12 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ScrollToPlugin);
 
 const Footer = () => {
-
-  const handleTop = () => {
-    gsap.to(window, { scrollTo: 0, duration: 0.2 });
-  }
 
   useGSAP(() => {
     gsap.from('.FooterChar', {
@@ -72,9 +66,9 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="h-[20%] relative">
-        <p className="absolute text-[0.6rem] md:text[1.8rem] lg:text-base left-[5%] top-[40%]">All Rights Resevered © 2025</p>
-        <button onClick={handleTop} className="absolute cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base left-[75%] lg:left-[90%] top-[40%]">BACK TO TOP</button>
+      <div className="h-[20%] flex items-center justify-between px-15">
+        <p className="text-[0.6rem] md:text[1.8rem] lg:text-base left-[5%] top-[40%]">All Rights Resevered © 2025</p>
+        <p className="text-[0.6rem] md:text[1.8rem] lg:text-base left-[70%] top-[40%]"> Crafted with - React • GSAP • Spline • Tailwind</p>
       </div>
     </div>
   )
