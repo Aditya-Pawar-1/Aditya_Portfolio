@@ -28,8 +28,8 @@ const SkillCard = ({ title, skill }) => {
     })
 
     return (
-        <div ref={cardRef} className='bg-[#0E0E0E] w-[80vw] md:w-[40vw] p-4'>
-            <h4 className='text-2xl md:text-4xl font-bold'>
+        <div ref={cardRef} className='bg-[#0E0E0E] w-[80vw] md:w-[60vw] lg:w-[40vw] p-4'>
+            <h4 className='text-2xl lg:text-4xl font-bold'>
                 {title}
             </h4>
             <div className='p-4'>

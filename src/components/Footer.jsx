@@ -2,11 +2,17 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from "react-router-dom";
+import useIsMobile from '../hooks/useIsMobile';
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+
+  const isMobile = useIsMobile();
+  const handleTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   useGSAP(() => {
     gsap.from('.FooterChar', {
@@ -66,9 +72,12 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="h-[20%] flex items-center justify-between px-15">
+      <div className="h-[20%] flex items-center justify-between px-5 lg:px-15 ">
         <p className="text-[0.6rem] md:text[1.8rem] lg:text-base left-[5%] top-[40%]">All Rights Resevered © 2025</p>
-        <p className="text-[0.6rem] md:text[1.8rem] lg:text-base left-[70%] top-[40%]"> Crafted with - React • GSAP • Spline • Tailwind</p>
+        {isMobile ?
+          <button onClick={handleTop} className="cursor-pointer text-[0.6rem] md:text[1.8rem] lg:text-base">BACK TO TOP</button>
+          : <p className="text-[0.6rem] md:text[1.8rem] lg:text-base left-[70%] top-[40%]"> Crafted with - React • GSAP • Spline • Tailwind</p>
+        }
       </div>
     </div>
   )

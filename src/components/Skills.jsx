@@ -101,7 +101,7 @@ const Skills = () => {
         <div ref={line} className="h-0.5 w-[0] bg-white mt-8"></div>
         <h2 className='text-[1.3rem] md:text-[2rem] py-2'>Which Skills I Used?</h2>
       </div>
-      <div className='flex flex-col flex-wrap md:flex-row justify-between items-center gap-2 md:gap-8 md:px-[5%] pb-8'>
+      <div className='flex flex-col flex-wrap lg:flex-row justify-between items-center gap-4 md:gap-8 md:px-[5%] pb-8'>
         {
           data.map((data, index) => (
             <SkillCard key={index} {...data}

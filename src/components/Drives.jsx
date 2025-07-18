@@ -18,15 +18,23 @@ const Drives = () => {
     const isMobile = useIsMobile();
 
     const colors = ['#fdefd4', '#ffcdd2', '#bbdefb', '#c8e6c9', '#fff59d', '#d1c4e9'];
+    let previousColor = null;
 
     const handleColorChange = () => {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        let randomColor;
+        do {
+            randomColor = colors[Math.floor(Math.random() * colors.length)];
+        } while (randomColor === previousColor && colors.length > 1);
+
+        previousColor = randomColor;
+
         gsap.to(textspan.current.parentElement, {
             backgroundColor: randomColor,
             duration: 0.5,
             ease: 'power1.out',
         });
     };
+
 
     useGSAP(() => {
         const tl = gsap.timeline();
