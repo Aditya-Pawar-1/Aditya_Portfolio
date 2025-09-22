@@ -6,7 +6,7 @@ import { useRef } from "react";
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
-const ProCard = ({ pathImg, ImgheightD, ImgheightM, heading, subheading, github, liveLink, reverse }) => {
+const ProCard = ({ pathImg, ImgheightD, ImgheightM, heading, subheading, github, liveLink, behance, reverse }) => {
     const CardRef = useRef();
 
     useGSAP(() => {
@@ -56,6 +56,13 @@ const ProCard = ({ pathImg, ImgheightD, ImgheightM, heading, subheading, github,
                         <a href={liveLink} target="_blank" rel="noopener noreferrer">
                             <button className="px-6 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 transition-all">
                                 Live
+                            </button>
+                        </a>
+                    )}
+                    {behance && (
+                        <a href={behance} target="_blank" rel="noopener noreferrer">
+                            <button className="px-6 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 transition-all">
+                                Behance
                             </button>
                         </a>
                     )}

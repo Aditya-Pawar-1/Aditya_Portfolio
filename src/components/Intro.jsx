@@ -1,10 +1,8 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef, lazy, Suspense, useMemo } from 'react';
+import { useRef } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
-
-const IntroSpline = lazy(() => import('./IntroSpline'));
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -75,13 +73,10 @@ const Intro = () => {
         end: '30% 15%',
         scrub: 4,
       },
-      scale: 1.5,
       rotate: -25,
       ease: 'power2.inOut',
     });
   });
-
-  const memoizedSpline = useMemo(() => <IntroSpline />, []);
 
   return (
     <div
@@ -116,25 +111,12 @@ const Intro = () => {
           ref={background}
           className="h-[120vh] lg:h-[200vh] scale-110 w-[100vw] will-change-transform"
         >
-          {isMobile ? (
-            <img
-              src="/assets/images/Intro_Backgroud.jpg"
-              alt="Intro Background"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <Suspense
-              fallback={
-                <img
-                  src="/assets/images/Intro_Backgroud.jpg"
-                  alt="Intro Background"
-                  className="h-full w-full object-cover"
-                />
-              }
-            >
-              {memoizedSpline}
-            </Suspense>
-          )}
+          <img
+            src= '/assets/images/Intro_Background.jpg'
+            alt="Intro Background"
+            className="h-full object-contain"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
