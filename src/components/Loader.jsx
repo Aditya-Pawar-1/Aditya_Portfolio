@@ -1,44 +1,51 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import TextPlugin from "gsap/TextPlugin";
 import { useRef } from "react";
 
-gsap.registerPlugin(useGSAP, TextPlugin);
+gsap.registerPlugin(useGSAP);
 
 const Loader = () => {
   const textRef = useRef(null);
   const containerRef = useRef(null);
+  const counterRef = useRef({ value: 0 });
 
   useGSAP(() => {
     const tl = gsap.timeline();
 
-    tl.to(textRef.current, {
-      duration: 1.5,
-      text: "Loading ...",
-      ease: "power1.inOut",
+    tl.to(counterRef.current, {
+      value: 100,
+      duration: 3,
+      ease: "power2.out",
+      onUpdate: () => {
+        if (textRef.current) {
+          textRef.current.textContent = `${Math.round(counterRef.current.value)}%`;
+        }
+      },
     })
-
       .call(() => {
         window.scrollTo({ top: 0, behavior: 'auto' });
       })
-
       .to(containerRef.current, {
-        y: "-100%",
-        opacity: 0,
+        yPercent: -100,
         duration: 0.8,
         ease: "power2.inOut",
-      }, "+=0.3");
+        onComplete: () => {
+          containerRef.current.style.display = "none";
+        }
+      });
   });
 
   return (
     <div
       ref={containerRef}
-      className="h-[100vh] flex items-center justify-center overflow-y-hidden fixed w-full z-[999] bg-black"
+      className="fixed inset-0 z-[9999] flex items-end justify-end pb-10 pr-10 md:pb-20 md:pr-20 bg-black overflow-hidden"
     >
       <h4
         ref={textRef}
-        className="text-[2.5rem] md:text-[4.5rem] lg:text-[8rem] font-quantico font-black text-white"
-      />
+        className="text-[4rem] md:text-[6rem] lg:text-[10rem] font-mono font-bold text-white leading-none tracking-tighter"
+      >
+        0%
+      </h4>
     </div>
   );
 };

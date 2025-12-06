@@ -24,3 +24,20 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     cursor: grabbing;
 }
+
+/* 3D Utilities */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.transform-style-3d {
+    transform-style: preserve-3d;
+}
+
+.translate-z-20 {
+    transform: translateZ(20px);
+}
+
+.translate-z-30 {
+    transform: translateZ(30px);
+}

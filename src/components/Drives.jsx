@@ -1,150 +1,155 @@
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef, useMemo } from 'react';
-import { lazy, Suspense } from 'react';
-import useIsMobile from '../hooks/useIsMobile';
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, lazy, Suspense } from "react";
+import useIsMobile from "../hooks/useIsMobile";
 
-const DrivesSpline = lazy(() => import('./DrivesSpline'));
+const DrivesSpline = lazy(() => import("./DrivesSpline"));
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 const Drives = () => {
-    const line = useRef();
-    const text = useRef();
-    const textspan = useRef();
-    const background = useRef();
-    const mainbackground = useRef();
+    const containerRef = useRef(null);
+    const textContainerRef = useRef(null);
+    const splineContainerRef = useRef(null);
+    const lineRef = useRef(null);
+
     const isMobile = useIsMobile();
 
-    const colors = ['#fdefd4', '#ffcdd2', '#bbdefb', '#c8e6c9', '#fff59d', '#d1c4e9'];
-    let previousColor = null;
-
-    const handleColorChange = () => {
-        let randomColor;
-        do {
-            randomColor = colors[Math.floor(Math.random() * colors.length)];
-        } while (randomColor === previousColor && colors.length > 1);
-
-        previousColor = randomColor;
-
-        gsap.to(textspan.current.parentElement, {
-            backgroundColor: randomColor,
-            duration: 0.5,
-            ease: 'power1.out',
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 60%",
+                end: "bottom bottom",
+                toggleActions: "play none none reverse",
+            }
         });
-    };
+
+        tl.fromTo(lineRef.current,
+            { width: 0 },
+            { width: "100%", duration: 1, ease: "power3.inOut" }
+        );
+
+        tl.from(".drive-text-line", {
+            y: "100%",
+            opacity: 0,
+            rotateX: -20,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power4.out",
+        }, "-=0.5");
+
+        gsap.to(splineContainerRef.current, {
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+            },
+            y: isMobile ? 50 : 150,
+            scale: isMobile ? 1 : 1.1,
+            ease: "none"
+        });
+
+    }, { scope: containerRef });
 
 
     useGSAP(() => {
-        const tl = gsap.timeline();
+        if (isMobile) return;
 
-        gsap.to(mainbackground.current, {
-            scrollTrigger: {
-                trigger: mainbackground.current,
-                start: '90% center',
-                end: '90% center',
-                scrub: 2,
-            },
-            scale: 0.6,
-            duration: 1.5,
-            ease: 'cubic-bezier(0.65, 0.00, 0.45, 1.00)',
-        });
+        const xToText = gsap.quickTo(textContainerRef.current, "x", { duration: 1, ease: "power3.out" });
+        const yToText = gsap.quickTo(textContainerRef.current, "y", { duration: 1, ease: "power3.out" });
 
-        gsap.to(line.current, {
-            scrollTrigger: {
-                trigger: line.current,
-                start: 'top center',
-                end: 'bottom 20%',
-                scrub: 1,
-            },
-            width: '80vw',
-            duration: 1.5,
-            ease: 'power2.inOut',
-        });
+        const xToSpline = gsap.quickTo(splineContainerRef.current, "x", { duration: 1.5, ease: "power3.out" });
+        const yToSpline = gsap.quickTo(splineContainerRef.current, "y", { duration: 1.5, ease: "power3.out" });
 
-        gsap.from(background.current, {
-            scrollTrigger: {
-                trigger: background.current,
-                start: '-40% center',
-                end: '-10% 20%',
-                scrub: 1,
-            },
-            scale: 0.4,
-            duration: 1.5,
-            ease: 'power2.inOut',
-        });
+        const handleMouseMove = (e) => {
+            const { clientX, clientY, innerWidth, innerHeight } = window;
+            const xNorm = (clientX / innerWidth) - 0.5;
+            const yNorm = (clientY / innerHeight) - 0.5;
 
-        tl.from(text.current, {
-            scrollTrigger: {
-                trigger: text.current,
-                start: '-70% center',
-                end: '-70% center',
-                scrub: 3,
-            },
-            y: 200,
-            x: 200,
-            opacity: 0,
-        });
+            xToText(xNorm * 30);
+            yToText(yNorm * 30);
 
-        tl.from(textspan.current, {
-            scrollTrigger: {
-                trigger: textspan.current,
-                start: '-600% bottom',
-                end: '-300% 75%',
-                scrub: 3,
-            },
-            y: '30vh',
-        });
-    });
+            xToSpline(xNorm * -60);
+            yToSpline(yNorm * -60);
+        };
 
-    const memoizedSpline = useMemo(() => <DrivesSpline />, []);
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, { scope: containerRef, dependencies: [isMobile] });
+
 
     return (
-        <div
-            ref={mainbackground}
-            className="h-[100vh] lg:h-[150vh] relative overflow-hidden bg-black"
+        <section
+            ref={containerRef}
+            className="relative h-[100vh] lg:h-[120vh] w-full overflow-hidden bg-[#000000]"
         >
-            <div
-                ref={background}
-                className="absolute will-change-transform scale-50 md:scale-75 lg:scale-90 -right-[60vw] md:-right-[80vw] lg:-right-[15vw]"
-            >
-                {isMobile ? (
-                    <img
-                        src="/assets/images/Drives_backgroud.gif"
-                        alt="Drives Section Background"
-                        className="object-contain h-[100vh] mt-[25vh] lg:mt-0 min-w-screen"
-                    />
-                ) : (
-                    <Suspense fallback={<div className="h-[100vh] w-full bg-black" />}>
-                        {memoizedSpline}
-                    </Suspense>
-                )}
-            </div>
 
-            <div className="absolute w-full h-full top-0">
-                <div className="relative h-full">
-                    <div
-                        ref={line}
-                        className="h-0.5 w-0 ml-[10vw] bg-white mt-8"
-                    ></div>
-                    <h2 className="text-[1.3rem] ml-[10vw] md:text-[2rem] py-6">what drives me?</h2>
-                    <div
-                        ref={text}
-                        className="absolute font-bold ml-[5vw] top-[30%] w-[50%] lg:w-[40%] text-[2rem] md:text-[3rem] lg:text-[4rem]"
-                    >
-                        <h2>transforming ideas into</h2>
-                        <div
-                            className="bg-[#fdefd4] w-fit text-black px-[1.5rem] rounded-full overflow-hidden cursor-pointer"
-                            onClick={handleColorChange}
-                        >
-                            <h2 ref={textspan}>interactive</h2>
-                        </div>
-                        <h2>web designs</h2>
-                    </div>
+            <div
+                ref={splineContainerRef}
+                className="absolute inset-0 z-0 flex items-center justify-center md:items-start md:justify-end translate-y-10 md:translate-x-[10%]"
+            >
+                <div className="relative select-none pointer-events-none w-full h-full md:w-[80%] md:h-[80%] opacity-30 md:opacity-60 mix-blend-screen">
+                    {isMobile ? (
+                        <img
+                            src="/assets/images/Drives_backgroud.gif"
+                            alt="3D Abstract Shape"
+                            className="w-full h-full object-contain scale-110"
+                        />
+                    ) : (
+                        <Suspense fallback={<div className="w-full h-full flex items-center justify-start text-white/20">Loading 3D...</div>}>
+                            <DrivesSpline />
+                        </Suspense>
+                    )}
                 </div>
             </div>
-        </div>
+
+
+            <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 flex flex-col justify-center h-full pointer-events-none">
+
+                <div className="mb-8 md:mb-12">
+                    <div className="flex items-center gap-4 mb-4">
+                        <span className="text-indigo-400 font-mono text-xs md:text-sm tracking-widest uppercase">
+                            Core Philosophy
+                        </span>
+                        <div ref={lineRef} className="h-[1px] bg-gradient-to-r from-indigo-500 to-transparent w-full max-w-[200px]" />
+                    </div>
+                </div>
+
+                <div ref={textContainerRef} className="pointer-events-auto mix-blend-difference">
+
+                    <div className="overflow-hidden mb-2">
+                        <h3 className="drive-text-line text-lg md:text-2xl text-slate-400 font-light tracking-wide">
+                            Bridging the gap between
+                        </h3>
+                    </div>
+
+                    <div className="overflow-hidden">
+                        <h2 className="drive-text-line text-[3rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[8rem] font-black text-white leading-[0.9] tracking-tighter">
+                            USER EXPERIENCE
+                        </h2>
+                    </div>
+
+                    <div className="overflow-hidden">
+                        <h2 className="drive-text-line text-[3rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[8rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white leading-[0.9] tracking-tighter ml-0 md:ml-12 lg:ml-24">
+                            <span className="text-indigo-500 font-light italic text-[0.8em] mr-4">& </span>
+                            ENGINEERING
+                        </h2>
+                    </div>
+
+                    <div className="overflow-hidden mt-8 md:mt-12 max-w-xl md:ml-24">
+                        <p className="drive-text-line text-sm md:text-base text-slate-400 leading-relaxed">
+                            I don't just write code; I craft digital environments. Every interaction is calculated, every pixel is deliberate, ensuring the technology serves the human experience.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
     );
 };
 

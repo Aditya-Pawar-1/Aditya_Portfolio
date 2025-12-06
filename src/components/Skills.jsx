@@ -1,116 +1,123 @@
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from "react";
-import SkillCard from './SkillCard'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SkillCard from "./SkillCard";
 
-gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
   const data = [
     {
       title: "Frontend Development",
-      skill: [
-        "HTML",
-        "CSS & Tailwind CSS",
-        "JavaScript",
-        "TypeScript",
-        "React",
-        "GSAP & Framer Motion"
-      ]
+      skill: ["HTML", "CSS & Tailwind CSS", "JavaScript", "TypeScript", "React", "GSAP & Framer Motion"],
     },
     {
       title: "Backend Development",
-      skill: [
-        "Node.js",
-        "Express.js",
-        "MongoDB and MySQL Databases",
-        "REST APIs",
-        "JWT & Authentication",
-        "MVC Architecture"
-      ]
+      skill: ["Node.js", "Express.js", "MongoDB / MySQL", "REST APIs", "JWT & Authentication", "MVC Architecture"],
     },
     {
       title: "UI/UX Design",
-      skill: [
-        "User Research",
-        "Wireframing & Prototyping",
-        "Layout & Visual Design",
-        "Responsive Design",
-        "Web & Mobile Design",
-        "Interaction Design",
-      ]
+      skill: ["User Research", "Wireframing & Prototyping", "Layout & Visual Design", "Responsive Design", "Web & Mobile Design", "Interaction Design"],
     },
     {
       title: "Tools & Platforms",
-      skill: [
-        "Figma",
-        "Git & GitHub",
-        "Visual Studio Code",
-        "Vercel",
-        "Postman",
-        "ESLint"
-      ]
+      skill: ["Figma", "Git & GitHub", "VS Code", "Vercel", "Postman", "ESLint"],
     },
     {
       title: "Programming & Technical",
-      skill: [
-        "C / C++",
-        "Java",
-        "Python",
-        "Database Management System",
-        "Data Structures & Algorithms",
-        "Object-Oriented Programming",
-      ]
+      skill: ["C / C++", "Java", "Python", "DBMS", "Data Structures & Algorithms", "Object-Oriented Programming"],
     },
     {
-      title: "Soft Skills",
-      skill: [
-        "Presentation",
-        "Collaboration",
-        "Teamwork",
-        "Time Management",
-        "Adaptability",
-        "Problem Solving"
-      ]
-    }
+      title: "Workflow & Architecture",
+      skill: ["Git & GitHub", "Agile / Scrum", "CI/CD Pipelines", "Docker", "RESTful Architecture", "Testing (Jest/Cypress)"],
+    },
   ];
 
-  const line = useRef();
-  useGSAP(() => {
-    gsap.to(line.current, {
-      scrollTrigger: {
-        trigger: line.current,
-        start: 'top center',
-        end: 'bottom 20%',
-        scrub: 1,
-        // markers: true,
-        duration: 1.5,
-        ease: "power2.inOut",
-      },
-      width: '80vw'
-    })
+  const sectionRef = useRef(null);
+  const lineRef = useRef(null);
+  const titleRef = useRef(null);
+  const gridRef = useRef(null);
 
-  })
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
 
+      tl.from(lineRef.current, {
+        width: 0,
+        duration: 1,
+        ease: "power3.inOut",
+      })
+        .from(titleRef.current, {
+          y: "100%",
+          opacity: 0,
+          duration: 0.8,
+          ease: "power4.out",
+        }, "-=0.5");
+
+      gsap.from(".skill-card", {
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 85%",
+        },
+        y: 50,
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "back.out(1.2)",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <>
-      <div className="pl-[5%] mb-[5%]">
-        <div ref={line} className="h-0.5 w-[0] bg-white mt-8"></div>
-        <h2 className='text-[1.3rem] md:text-[2rem] py-2'>Which Skills I Used?</h2>
-      </div>
-      <div className='flex flex-col flex-wrap lg:flex-row justify-between items-center gap-4 md:gap-8 md:px-[5%] pb-8'>
-        {
-          data.map((data, index) => (
-            <SkillCard key={index} {...data}
-            />
-          ))
-        }
-      </div>
-    </>
-  )
-}
+    <section
+      ref={sectionRef}
+      className="w-full py-16 md:py-24 px-6 md:px-[10%] text-white overflow-hidden"
+    >
+      <div className="mb-12 md:mb-20">
+        <div className="flex items-center gap-4 mb-4">
+          <div
+            ref={lineRef}
+            className="h-[1px] bg-indigo-500/50 w-full max-w-[120px] md:max-w-[200px]"
+          />
+          <span className="text-indigo-300 tracking-[0.3em] text-xs md:text-sm uppercase font-medium">
+            Capabilities
+          </span>
+        </div>
 
-export default Skills
+        <div className="overflow-hidden">
+          <h2
+            ref={titleRef}
+            className="text-3xl md:text-5xl font-bold leading-tight text-white"
+          >
+            TECHNICAL {" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">
+              ARSENAL
+            </span>
+          </h2>
+        </div>
+      </div>
+
+      <div
+        ref={gridRef}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7"
+      >
+        {data.map((item, index) => (
+          <div key={index} className="skill-card h-full">
+            <SkillCard {...item} index={index} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Skills;

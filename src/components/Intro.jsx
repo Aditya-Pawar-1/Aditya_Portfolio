@@ -1,125 +1,263 @@
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
-import useIsMobile from '../hooks/useIsMobile';
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import useIsMobile from "../hooks/useIsMobile";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 const Intro = () => {
-  const line = useRef(null);
-  const heading1 = useRef(null);
-  const heading2 = useRef(null);
-  const background = useRef(null);
-  const mainbackground = useRef(null);
+  const root = useRef(null);
+  const section = useRef(null);
+
+  const labelRef = useRef(null);
+  const lineRef = useRef(null);
+  const headingBlockRef = useRef(null);
+  const subheadingRef = useRef(null);
+
+  const visualContainerRef = useRef(null);
+  const mainCardRef = useRef(null);
+  const floatCard1Ref = useRef(null);
+  const floatCard2Ref = useRef(null);
+  const glowRef = useRef(null);
+
   const isMobile = useIsMobile();
 
   useGSAP(() => {
-    gsap.to(mainbackground.current, {
-      scrollTrigger: {
-        trigger: background.current,
-        start: '90% center',
-        end: '90% center',
-        scrub: 2,
-      },
+    const tl = gsap.timeline();
+    const lines = headingBlockRef.current?.querySelectorAll(".intro-line");
+
+    tl.from(labelRef.current, {
+      opacity: 0,
+      y: 16,
+      duration: 0.45,
+      ease: "power3.out",
+    }).from(lineRef.current, {
+      width: "0%",
+      duration: 0.6,
+      ease: "power3.inOut",
+    }, "<");
+
+    if (lines?.length) {
+      tl.from(lines, {
+        y: "115%",
+        opacity: 0,
+        stagger: 0.08,
+        duration: 0.8,
+        ease: "expo.out",
+      }, "-=0.15");
+    }
+
+    tl.from(subheadingRef.current, {
+      opacity: 0,
+      y: 14,
+      duration: 0.55,
+      ease: "power3.out",
+    }, "-=0.25");
+
+    tl.from(visualContainerRef.current, {
+      opacity: 0,
       scale: 0.8,
-      duration: 1.5,
-      ease: 'cubic-bezier(0.65, 0.00, 0.45, 1.00)',
-    });
+      duration: 1,
+      ease: "power3.out",
+    }, "-=0.8");
 
-    gsap.fromTo(
-      line.current,
-      { width: '0vw' },
-      {
-        width: '80vw',
-        scrollTrigger: {
-          trigger: line.current,
-          start: 'top center',
-          end: 'bottom 20%',
-          scrub: 1,
-        },
-        ease: 'power2.inOut',
-      }
-    );
-
-    gsap.from(heading1.current, {
-      scrollTrigger: {
-        trigger: heading1.current,
-        start: 'top center',
-        end: 'top 15%',
-        scrub: 1,
-      },
+    tl.from([floatCard1Ref.current, floatCard2Ref.current], {
+      scale: 0,
       opacity: 0,
-      y: '-20vh',
-      ease: 'power2.inOut',
+      stagger: 0.2,
+      duration: 0.6,
+      ease: "back.out(1.7)",
+    }, "-=0.5");
+
+  }, { scope: root });
+
+
+  useGSAP(() => {
+    if (isMobile) return;
+
+    gsap.to(mainCardRef.current, {
+      y: -15,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
     });
 
-    gsap.from(heading2.current, {
-      scrollTrigger: {
-        trigger: heading2.current,
-        start: '-40% center',
-        end: '-30% 35%',
-        scrub: 1,
-      },
-      opacity: 0,
-      y: '20vh',
-      ease: 'power2.inOut',
+    gsap.to(floatCard1Ref.current, {
+      y: -25,
+      x: 5,
+      duration: 5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 0.5
     });
 
-    gsap.to(background.current, {
-      scrollTrigger: {
-        trigger: heading1.current,
-        start: 'center center',
-        end: '30% 15%',
-        scrub: 4,
-      },
-      rotate: -25,
-      ease: 'power2.inOut',
+    gsap.to(floatCard2Ref.current, {
+      y: 20,
+      x: -5,
+      duration: 6,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 1
     });
-  });
+
+    gsap.to(glowRef.current, {
+      opacity: 0.6,
+      scale: 1.2,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+  }, { scope: root, dependencies: [isMobile] });
+
+
+  useGSAP(() => {
+    if (isMobile) return;
+
+    const container = root.current;
+
+    const xToMain = gsap.quickTo(mainCardRef.current, "rotationY", { duration: 0.8, ease: "power3.out" });
+    const yToMain = gsap.quickTo(mainCardRef.current, "rotationX", { duration: 0.8, ease: "power3.out" });
+
+    const xMoveFloat1 = gsap.quickTo(floatCard1Ref.current, "x", { duration: 1, ease: "power3.out" });
+    const yMoveFloat1 = gsap.quickTo(floatCard1Ref.current, "y", { duration: 1, ease: "power3.out" });
+
+    const xMoveFloat2 = gsap.quickTo(floatCard2Ref.current, "x", { duration: 1.2, ease: "power3.out" });
+    const yMoveFloat2 = gsap.quickTo(floatCard2Ref.current, "y", { duration: 1.2, ease: "power3.out" });
+
+
+    const handleMouseMove = (e) => {
+      const { clientX, clientY, innerWidth, innerHeight } = window;
+
+      const xNorm = (clientX / innerWidth) * 2 - 1;
+      const yNorm = (clientY / innerHeight) * 2 - 1;
+
+      xToMain(xNorm * 10);
+      yToMain(-yNorm * 10);
+
+      xMoveFloat1(xNorm * 40);
+      yMoveFloat1(yNorm * 40);
+
+      xMoveFloat2(-xNorm * 30);
+      yMoveFloat2(-yNorm * 30);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, { scope: root, dependencies: [isMobile] });
+
+
+  const handleMouseEnter = (e) => {
+    gsap.to(e.currentTarget, { scale: 1.02, x: 10, duration: 0.3, ease: "power3.out" });
+  };
+  const handleMouseLeave = (e) => {
+    gsap.to(e.currentTarget, { scale: 1, x: 0, duration: 0.3, ease: "power3.out" });
+  };
 
   return (
-    <div
-      ref={mainbackground}
-      className="h-[100vh] lg:h-[200vh] max-w-screen relative overflow-hidden bg-[#BDCFF5] text-gray-950"
+    <section
+      ref={root}
+      className="relative min-h-[90vh] md:min-h-[100vh] w-full overflow-hidden bg-[#050816] text-white perspective-[1000px]"
     >
-      <div className="h-100% w-100%">
-        <div className="absolute pointer-events-none left-[10%] z-10">
-          <div ref={line} className="h-0.5 w-0 bg-black mt-8"></div>
-          <h2 className="text-[1.3rem] md:text-[2rem] py-2">who am i?</h2>
+      <div
+        ref={section}
+        className="relative z-10 mx-auto flex h-full max-w-7xl flex-col lg:flex-row items-center justify-center gap-12 px-6 pt-32 pb-20 lg:px-8 lg:py-0 lg:h-screen"
+      >
 
-          <div className="h-[50vh] lg:h-[100vh]">
-            <h1
-              ref={heading1}
-              className="font-bold text-[3rem] md:text-[4rem] lg:text-[6rem] h-screen pt-[20%]"
+        <div className="w-full lg:w-1/2 space-y-8 z-20">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <p ref={labelRef} className="uppercase tracking-[0.25em] text-xs font-medium text-indigo-300">
+                who am i?
+              </p>
+              <div ref={lineRef} className="h-[1px] w-24 bg-indigo-500/50" />
+            </div>
+
+            <div
+              ref={headingBlockRef}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="select-none group"
             >
-              Web <br /> developer
-            </h1>
+              <div className="overflow-hidden">
+                <h1 className="intro-line inline-block text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-[1] tracking-tight">
+                  <span className="text-white group-hover:text-indigo-400 transition-colors duration-500">UI/UX</span>{" "}
+                  <span className="text-slate-300 font-semibold">designer</span>
+                </h1>
+              </div>
+
+              <div className="overflow-hidden">
+                <h1 className="intro-line inline-block text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-[1] tracking-tight">
+                  <span className="text-slate-300 font-semibold">&amp; MERN</span>{" "}
+                  <span className="text-white group-hover:text-indigo-400 transition-colors duration-500">developer</span>
+                </h1>
+              </div>
+            </div>
+
           </div>
 
-          <div className="h-[50vh] lg:h-[100vh]">
-            <h1
-              ref={heading2}
-              className="font-bold ml-[20%] md:ml-[55%] text-[3rem] md:text-[4rem] lg:text-[6rem] h-screen pt-[16%]"
+          <p ref={subheadingRef} className="max-w-lg text-sm md:text-base text-slate-400 leading-relaxed">
+            I bridge the gap between <span className="text-white font-medium">design</span> and <span className="text-white font-medium">engineering</span>.
+            I build pixel-perfect, engaging, and accessible digital experiences using modern architecture.
+          </p>
+        </div>
+
+        <div className="w-full lg:w-1/2 relative flex items-center justify-center h-[50vh] lg:h-auto">
+
+          <div ref={visualContainerRef} className="relative w-[300px] md:w-[400px] aspect-square flex items-center justify-center">
+
+            <div ref={glowRef} className="absolute inset-0 bg-indigo-600/20 blur-[80px] rounded-full pointer-events-none" />
+
+            <div
+              ref={floatCard1Ref}
+              className="absolute -top-6 -left-8 md:-left-12 z-30 w-32 md:w-40 p-3 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md shadow-2xl"
             >
-              ui/ux <br /> designer
-            </h1>
+              <div className="flex gap-1 mb-2">
+                <div className="w-2 h-2 rounded-full bg-red-500" />
+                <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                <div className="w-2 h-2 rounded-full bg-green-500" />
+              </div>
+              <div className="space-y-1.5 opacity-60">
+                <div className="h-1.5 w-3/4 bg-slate-400 rounded-full" />
+                <div className="h-1.5 w-1/2 bg-indigo-400 rounded-full" />
+                <div className="h-1.5 w-2/3 bg-slate-400 rounded-full" />
+              </div>
+            </div>
+
+            <div
+              ref={mainCardRef}
+              className="relative z-20 w-full h-full rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] bg-[#0a0a0a]"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <img
+                src="/assets/images/Intro_Background.jpg"
+                alt="Abstract Design"
+                className="h-full w-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none mix-blend-overlay" />
+            </div>
+
+            <div
+              ref={floatCard2Ref}
+              className="absolute -bottom-8 -right-4 md:-right-10 z-30 w-28 md:w-32 h-32 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center shadow-2xl"
+            >
+              <div className="text-center">
+                <span className="block text-2xl">🎨</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/50 mt-1">Design</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <div
-          ref={background}
-          className="h-[120vh] lg:h-[200vh] scale-110 w-[100vw] will-change-transform"
-        >
-          <img
-            src= '/assets/images/Intro_Background.jpg'
-            alt="Intro Background"
-            className="h-full object-contain"
-            loading="lazy"
-          />
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

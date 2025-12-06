@@ -45,7 +45,7 @@ const Hero = () => {
     <div ref={background} className="overflow-hidden">
       <div className="relative">
         <div className="flex flex-col z-2 h-full w-full pb-20 md:pb-4 text-white absolute items-center justify-end pointer-events-none">
-          <div ref={heading} className="text-[6rem] md:text-[12rem] lg:text-[16rem] font-semibold uppercase">
+          <div ref={heading} className="text-[5rem] sm:text-[6rem] md:text-[12rem] lg:text-[16rem] font-semibold uppercase">
             {["a", "d", "i", "t", "y", "a"].map((char, i) => (
               <span key={i} className="char inline-block">{char}</span>
             ))}
