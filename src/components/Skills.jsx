@@ -18,7 +18,7 @@ const Skills = () => {
     },
     {
       title: "UI/UX Design",
-      skill: ["User Research", "Wireframing & Prototyping", "Layout & Visual Design", "Responsive Design", "Web & Mobile Design", "Interaction Design"],
+      skill: ["User Research", "Wireframing", "Prototyping", "Responsive Design", "Layout & Visual Design", "Web & Mobile Design", "Interaction Design"],
     },
     {
       title: "Tools & Platforms",
@@ -28,9 +28,9 @@ const Skills = () => {
       title: "Programming & Technical",
       skill: ["C / C++", "Java", "Python", "DBMS", "Data Structures & Algorithms", "Object-Oriented Programming"],
     },
-    {
-      title: "Workflow & Architecture",
-      skill: ["Git & GitHub", "Agile / Scrum", "CI/CD Pipelines", "Docker", "RESTful Architecture", "Testing (Jest/Cypress)"],
+{
+      title: "Professional Workflow",
+      skill: ["Agile & Scrum", "Code Review", "Technical Documentation", "Version Control (Git Flow)", "Project Management", "Debugging & Troubleshooting"],
     },
   ];
 
@@ -53,13 +53,16 @@ const Skills = () => {
         width: 0,
         duration: 1,
         ease: "power3.inOut",
-      })
-        .from(titleRef.current, {
+      }).from(
+        titleRef.current,
+        {
           y: "100%",
           opacity: 0,
           duration: 0.8,
           ease: "power4.out",
-        }, "-=0.5");
+        },
+        "-=0.5"
+      );
 
       gsap.from(".skill-card", {
         scrollTrigger: {
@@ -86,9 +89,9 @@ const Skills = () => {
         <div className="flex items-center gap-4 mb-4">
           <div
             ref={lineRef}
-            className="h-[1px] bg-indigo-500/50 w-full max-w-[120px] md:max-w-[200px]"
+            className="h-[1px] bg-white/40 w-full max-w-[120px] md:max-w-[200px]"
           />
-          <span className="text-indigo-300 tracking-[0.3em] text-xs md:text-sm uppercase font-medium">
+          <span className="text-slate-300 tracking-[0.3em] text-xs md:text-sm uppercase font-medium">
             Capabilities
           </span>
         </div>
@@ -98,8 +101,8 @@ const Skills = () => {
             ref={titleRef}
             className="text-3xl md:text-5xl font-bold leading-tight text-white"
           >
-            TECHNICAL {" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">
+            TECHNICAL{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
               ARSENAL
             </span>
           </h2>

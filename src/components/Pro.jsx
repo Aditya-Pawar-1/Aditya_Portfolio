@@ -53,15 +53,15 @@ const Pro = () => {
       id="projects"
       className="relative w-full bg-[#050816] py-24 md:py-32 overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-purple-900/5 to-black pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-neutral-900/40 to-black pointer-events-none" />
 
       <motion.div
         style={{ y, opacity }}
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-white/5 via-neutral-900/80 to-black rounded-full blur-[120px] pointer-events-none"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-        <div className="mb-20 md:mb-32">
+        <div className="mb-16 md:mb-24">
           <div className="flex items-center gap-4 mb-6">
             <motion.div
               initial={{ width: 0, opacity: 0 }}
@@ -85,19 +85,24 @@ const Pro = () => {
             <motion.h2
               initial={{ y: "100%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.33, 1, 0.68, 1] }} // cubic-bezier
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.33, 1, 0.68, 1],
+              }}
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-bold text-white leading-tight"
             >
               Featured{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
                 Projects
               </span>
             </motion.h2>
           </div>
         </div>
 
-        <div className="flex flex-col gap-20 md:gap-32">
+        {/* Reduced gap but same responsive column layout */}
+        <div className="flex flex-col gap-12 md:gap-20">
           {Projects.map((data, index) => (
             <ProCard key={index} {...data} reverse={index % 2 !== 0} />
           ))}

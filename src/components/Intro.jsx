@@ -9,12 +9,10 @@ gsap.registerPlugin(ScrollTrigger);
 const Intro = () => {
   const root = useRef(null);
   const section = useRef(null);
-
   const labelRef = useRef(null);
   const lineRef = useRef(null);
   const headingBlockRef = useRef(null);
   const subheadingRef = useRef(null);
-
   const visualContainerRef = useRef(null);
   const mainCardRef = useRef(null);
   const floatCard1Ref = useRef(null);
@@ -69,9 +67,7 @@ const Intro = () => {
       duration: 0.6,
       ease: "back.out(1.7)",
     }, "-=0.5");
-
   }, { scope: root });
-
 
   useGSAP(() => {
     if (isMobile) return;
@@ -112,63 +108,77 @@ const Intro = () => {
       yoyo: true,
       ease: "sine.inOut"
     });
-
   }, { scope: root, dependencies: [isMobile] });
-
 
   useGSAP(() => {
     if (isMobile) return;
 
-    const container = root.current;
+    const container = visualContainerRef.current;
+    const main = mainCardRef.current;
+    const float1 = floatCard1Ref.current;
+    const float2 = floatCard2Ref.current;
+    const glow = glowRef.current;
 
-    const xToMain = gsap.quickTo(mainCardRef.current, "rotationY", { duration: 0.8, ease: "power3.out" });
-    const yToMain = gsap.quickTo(mainCardRef.current, "rotationX", { duration: 0.8, ease: "power3.out" });
-
-    const xMoveFloat1 = gsap.quickTo(floatCard1Ref.current, "x", { duration: 1, ease: "power3.out" });
-    const yMoveFloat1 = gsap.quickTo(floatCard1Ref.current, "y", { duration: 1, ease: "power3.out" });
-
-    const xMoveFloat2 = gsap.quickTo(floatCard2Ref.current, "x", { duration: 1.2, ease: "power3.out" });
-    const yMoveFloat2 = gsap.quickTo(floatCard2Ref.current, "y", { duration: 1.2, ease: "power3.out" });
-
-
-    const handleMouseMove = (e) => {
-      const { clientX, clientY, innerWidth, innerHeight } = window;
-
-      const xNorm = (clientX / innerWidth) * 2 - 1;
-      const yNorm = (clientY / innerHeight) * 2 - 1;
-
-      xToMain(xNorm * 10);
-      yToMain(-yNorm * 10);
-
-      xMoveFloat1(xNorm * 40);
-      yMoveFloat1(yNorm * 40);
-
-      xMoveFloat2(-xNorm * 30);
-      yMoveFloat2(-yNorm * 30);
+    const resetState = () => {
+      gsap.to([main, glow], { rotationX: 0, rotationY: 0, x: 0, y: 0, duration: 0.6, ease: "power3.out" });
+      gsap.to([float1, float2], { x: 0, y: 0, duration: 0.6, ease: "power3.out" });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const handleMouseEnter = () => {
+      gsap.to(container, { scale: 1.02, duration: 0.3, ease: "power3.out" });
+      gsap.to(glow, { opacity: 0.9, duration: 0.4, ease: "power3.out" });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(container, { scale: 1, duration: 0.3, ease: "power3.out" });
+      gsap.to(glow, { opacity: 0.6, duration: 0.4, ease: "power3.out" });
+      resetState();
+    };
+
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const xNorm = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const yNorm = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+      gsap.to(main, {
+        rotationY: xNorm * 10,
+        rotationX: -yNorm * 10,
+        transformPerspective: 1000,
+        duration: 0.5,
+        ease: "power3.out",
+      });
+
+      gsap.to(glow, { x: xNorm * 10, y: yNorm * 10, duration: 0.6, ease: "power3.out" });
+      gsap.to(float1, { x: -xNorm * 18, y: -yNorm * 18, duration: 0.6, ease: "power3.out" });
+      gsap.to(float2, { x: xNorm * 14, y: yNorm * 14, duration: 0.6, ease: "power3.out" });
+    };
+
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mousemove", handleMouseMove);
+    };
   }, { scope: root, dependencies: [isMobile] });
 
-
-  const handleMouseEnter = (e) => {
+  const handleMouseEnterHeading = (e) =>
     gsap.to(e.currentTarget, { scale: 1.02, x: 10, duration: 0.3, ease: "power3.out" });
-  };
-  const handleMouseLeave = (e) => {
+
+  const handleMouseLeaveHeading = (e) =>
     gsap.to(e.currentTarget, { scale: 1, x: 0, duration: 0.3, ease: "power3.out" });
-  };
 
   return (
     <section
       ref={root}
-      className="relative min-h-[90vh] md:min-h-[100vh] w-full overflow-hidden bg-[#050816] text-white perspective-[1000px]"
+      className="relative min-h-[100vh] w-full overflow-hidden bg-[url(public/assets/images/10016491_27230.svg)] bg-no-repeat bg-top text-white perspective-[1000px]"
     >
       <div
         ref={section}
         className="relative z-10 mx-auto flex h-full max-w-7xl flex-col lg:flex-row items-center justify-center gap-12 px-6 pt-32 pb-20 lg:px-8 lg:py-0 lg:h-screen"
       >
-
         <div className="w-full lg:w-1/2 space-y-8 z-20">
           <div className="space-y-4">
             <div className="flex items-center gap-4">
@@ -180,13 +190,17 @@ const Intro = () => {
 
             <div
               ref={headingBlockRef}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={handleMouseEnterHeading}
+              onMouseLeave={handleMouseLeaveHeading}
               className="select-none group"
             >
               <div className="overflow-hidden">
                 <h1 className="intro-line inline-block text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-[1] tracking-tight">
-                  <span className="text-white group-hover:text-indigo-400 transition-colors duration-500">UI/UX</span>{" "}
+                  <span
+                    className="text-white transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-[#e5e5e5] group-hover:to-[#b3b3b3] group-hover:bg-clip-text group-hover:text-transparent group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]"
+                  >
+                    UI/UX
+                  </span>{" "}
                   <span className="text-slate-300 font-semibold">designer</span>
                 </h1>
               </div>
@@ -194,23 +208,30 @@ const Intro = () => {
               <div className="overflow-hidden">
                 <h1 className="intro-line inline-block text-[2.5rem] md:text-[4rem] lg:text-[5rem] font-bold leading-[1] tracking-tight">
                   <span className="text-slate-300 font-semibold">&amp; MERN</span>{" "}
-                  <span className="text-white group-hover:text-indigo-400 transition-colors duration-500">developer</span>
+                  <span
+                    className="text-white transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-[#e5e5e5] group-hover:to-[#b3b3b3] group-hover:bg-clip-text group-hover:text-transparent group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.25)]"
+                  >
+                    developer
+                  </span>
                 </h1>
               </div>
             </div>
-
           </div>
 
-          <p ref={subheadingRef} className="max-w-lg text-sm md:text-base text-slate-400 leading-relaxed">
-            I bridge the gap between <span className="text-white font-medium">design</span> and <span className="text-white font-medium">engineering</span>.
-            I build pixel-perfect, engaging, and accessible digital experiences using modern architecture.
+          <p
+            ref={subheadingRef}
+            className="max-w-lg text-sm md:text-base text-slate-400 leading-relaxed"
+          >
+            I bridge the gap between <span className="text-white font-medium">design</span> and{" "}
+            <span className="text-white font-medium">engineering</span>. I build pixel-perfect, engaging, and accessible digital experiences using modern architecture.
           </p>
         </div>
 
         <div className="w-full lg:w-1/2 relative flex items-center justify-center h-[50vh] lg:h-auto">
-
-          <div ref={visualContainerRef} className="relative w-[300px] md:w-[400px] aspect-square flex items-center justify-center">
-
+          <div
+            ref={visualContainerRef}
+            className="relative w-[300px] md:w-[400px] aspect-square flex items-center justify-center cursor-pointer"
+          >
             <div ref={glowRef} className="absolute inset-0 bg-indigo-600/20 blur-[80px] rounded-full pointer-events-none" />
 
             <div
@@ -249,10 +270,11 @@ const Intro = () => {
             >
               <div className="text-center">
                 <span className="block text-2xl">🎨</span>
-                <span className="text-[10px] uppercase tracking-widest text-white/50 mt-1">Design</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/50 mt-1">
+                  Design
+                </span>
               </div>
             </div>
-
           </div>
         </div>
 
