@@ -1,10 +1,6 @@
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import useIsMobile from "../hooks/useIsMobile";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ProCard = ({
   pathImg,
@@ -16,111 +12,84 @@ const ProCard = ({
   reverse,
   isMobileApp,
 }) => {
-  const containerRef = useRef(null);
-  const cardRef = useRef(null);
-  const imgRef = useRef(null);
   const isMobile = useIsMobile();
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  useGSAP(
-    () => {
-      if (isMobile) return;
-      const card = cardRef.current;
-      const img = imgRef.current;
-      if (!card || !img) return;
+  const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+  const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
 
-      const rotateYTo = gsap.quickTo(card, "rotateY", { duration: 0.4, ease: "power3.out" });
-      const rotateXTo = gsap.quickTo(card, "rotateX", { duration: 0.4, ease: "power3.out" });
-      const imgXTo = gsap.quickTo(img, "x", { duration: 0.4, ease: "power3.out" });
-      const imgYTo = gsap.quickTo(img, "y", { duration: 0.4, ease: "power3.out" });
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], [7, -7]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], [-7, 7]);
+  
+  const imgX = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
+  const imgY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
 
-      const handleMouseMove = (e) => {
-        const rect = card.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const rotateY = ((mouseX - width / 2) / width) * 6;
-        const rotateX = ((mouseY - height / 2) / height) * -6;
-        rotateYTo(rotateY);
-        rotateXTo(rotateX);
-        imgXTo((mouseX - width / 2) * 0.05);
-        imgYTo((mouseY - height / 2) * 0.05);
-      };
+  const handleMouseMove = (e) => {
+    if (isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXPos = e.clientX - rect.left;
+    const mouseYPos = e.clientY - rect.top;
+    
+    const xPct = (mouseXPos / width) - 0.5;
+    const yPct = (mouseYPos / height) - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
 
-      const handleMouseLeave = () => {
-        rotateYTo(0);
-        rotateXTo(0);
-        imgXTo(0);
-        imgYTo(0);
-      };
-
-      card.addEventListener("mousemove", handleMouseMove);
-      card.addEventListener("mouseleave", handleMouseLeave);
-
-      return () => {
-        card.removeEventListener("mousemove", handleMouseMove);
-        card.removeEventListener("mouseleave", handleMouseLeave);
-      };
-    },
-    { scope: containerRef, dependencies: [isMobile] }
-  );
-
-  useGSAP(
-    () => {
-      const ctx = gsap.context(() => {
-        gsap.from(containerRef.current, {
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 0,
-          y: 60,
-          duration: 0.9,
-          ease: "power3.out",
-        });
-      }, containerRef);
-      return () => ctx.revert();
-    },
-    { scope: containerRef }
-  );
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   const imgSizeClass = isMobileApp
     ? "h-[320px] md:h-[420px]"
     : "h-[280px] md:h-[380px] lg:h-[420px]";
 
   return (
-    <div
-      ref={containerRef}
+    <motion.div
+      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.2 }}
       className={`flex flex-col md:flex-row ${
         reverse ? "md:flex-row-reverse" : ""
-      } items-center gap-8 lg:gap-16 my-4 lg:my-8`}
+      } items-center gap-8 lg:gap-20 my-4 lg:my-8 perspective-1000`}
     >
-      <div className="w-full md:w-1/2 flex justify-center">
-        <div
-          ref={cardRef}
-          className="group relative w-full rounded-2xl bg-white/5 border border-white/10 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(0,0,0,0.6)] hover:border-white/25"
-          style={{ transformStyle: "preserve-3d" }}
+      <div className="w-full md:w-1/2 flex justify-center perspective-1000">
+        <motion.div
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ 
+            rotateX: isMobile ? 0 : rotateX, 
+            rotateY: isMobile ? 0 : rotateY,
+            transformStyle: "preserve-3d"
+          }}
+          className="group relative w-full rounded-2xl bg-white/5 border border-white/10 p-3 md:p-4 backdrop-blur-sm transition-colors duration-300 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(0,0,0,0.6)] hover:border-white/20"
         >
           <div
             className={`relative overflow-hidden rounded-xl bg-black/50 w-full flex items-center justify-center ${imgSizeClass}`}
           >
-            <img
-              ref={imgRef}
+            <motion.img
+              style={{ x: isMobile ? 0 : imgX, y: isMobile ? 0 : imgY, scale: 1.05 }}
               src={pathImg}
               alt={heading}
-              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110"
               loading="lazy"
             />
           </div>
-
-          <div className="pointer-events-none absolute inset-x-4 top-3 h-20 bg-gradient-to-b from-white/10 via-white/0 to-transparent rounded-t-xl opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-        </div>
+          
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+        </motion.div>
       </div>
 
       <div className="w-full md:w-1/2 flex flex-col items-start justify-center text-left space-y-6">
         <div className="space-y-3">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight">
             {heading}
           </h3>
           <div className="h-[2px] w-16 bg-gradient-to-r from-white to-neutral-500 rounded-full" />
@@ -131,32 +100,56 @@ const ProCard = ({
         </p>
 
         <div className="flex flex-wrap gap-4 pt-2">
-          {liveLink && <ProjectButton href={liveLink} label="Live Demo" icon="↗" />}
-          {behance && <ProjectButton href={behance} label="Behance" icon="↗" />}
-          {github && <ProjectButton href={github} label="GitHub" icon="↗" />}
+          {liveLink && <MagneticButton href={liveLink} label="Live Demo" icon="↗" />}
+          {behance && <MagneticButton href={behance} label="Behance" icon="↗" />}
+          {github && <MagneticButton href={github} label="GitHub" icon="↗" />}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-const ProjectButton = ({ href, label, icon }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative px-6 py-3 rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:bg-white/12 hover:border-white/30 hover:shadow-[0_0_20px_rgba(0,0,0,0.7)] active:scale-95"
-  >
-    <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    <div className="relative z-10 flex items-center gap-2">
-      <span className="text-sm font-medium text-white transition-colors">
-        {label}
-      </span>
-      <span className="text-xs opacity-80 group-hover:opacity-100 translate-y-[1px] transition-transform duration-300 group-hover:translate-x-0.5">
-        {icon}
-      </span>
-    </div>
-  </a>
-);
+const MagneticButton = ({ href, label, icon }) => {
+  const ref = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouse = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
+  };
+
+  const reset = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  const { x, y } = position;
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ x, y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      className="group relative px-6 py-3 rounded-xl bg-white/5 border border-white/10 overflow-hidden inline-block"
+    >
+      <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="relative z-10 flex items-center gap-2">
+        <span className="text-sm font-medium text-white group-hover:text-white transition-colors">
+          {label}
+        </span>
+        <span className="text-xs text-white/70 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+          {icon}
+        </span>
+      </div>
+    </motion.a>
+  );
+};
 
 export default ProCard;

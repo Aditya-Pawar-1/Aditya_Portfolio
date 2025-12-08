@@ -1,14 +1,25 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import ProCard from "./ProCard";
+import useIsMobile from "../hooks/useIsMobile";
 
 const Pro = () => {
+  const containerRef = useRef(null);
+  const isMobile = useIsMobile();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+
   const Projects = [
     {
       pathImg: "/assets/images/Mahavitaran_Application_Redesign_Case_Study.jpg",
       heading: "Mahavitaran App Redesign",
       subheading:
-        "A UI/UX case study detailing the design process for a user-centric redesign of the Mahavitaran mobile app, focusing on enhancing information clarity, and building a functional service management platform for a seamless and trustworthy user experience.",
+        "A UI/UX case study detailing the design process for a user-centric redesign of the Mahavitaran mobile app, focusing on enhancing information clarity and building a functional service management platform.",
       behance:
         "https://www.behance.net/gallery/235079485/Mahavitaran-Application-Redesign",
     },
@@ -31,21 +42,11 @@ const Pro = () => {
       pathImg: "/assets/images/Real_Estate_Website_Case_Study.jpg",
       heading: "Real Estate Website Case Study",
       subheading:
-        "UI/UX case study detailing the design process for a user-centric digital real estate rental platform, focusing on enhancing property search, communication, and rental management for a seamless user experience.",
+        "UI/UX case study detailing the design process for a user-centric digital real estate rental platform, focusing on enhancing property search, communication, and rental management.",
       behance:
         "https://www.behance.net/gallery/194289569/Real-Estate-Webite-Project-Case-Study",
     },
   ];
-
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
 
   return (
     <section
@@ -56,26 +57,26 @@ const Pro = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-neutral-900/40 to-black pointer-events-none" />
 
       <motion.div
-        style={{ y, opacity }}
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-white/5 via-neutral-900/80 to-black rounded-full blur-[120px] pointer-events-none"
+        style={{ y: isMobile ? 0 : glowY }}
+        className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none opacity-40 mix-blend-screen"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         <div className="mb-16 md:mb-24">
           <div className="flex items-center gap-4 mb-6">
             <motion.div
-              initial={{ width: 0, opacity: 0 }}
-              whileInView={{ width: "100%", opacity: 0.5 }}
-              transition={{ duration: 1, ease: "circOut" }}
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1, ease: "easeInOut" }}
               viewport={{ once: true }}
-              className="h-[1px] bg-white/50 w-full max-w-[120px] md:max-w-[220px]"
+              className="h-[1px] bg-white/50 w-full max-w-[100px] md:max-w-[220px]"
             />
             <motion.span
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-gray-400 tracking-[0.3em] text-sm uppercase"
+              className="text-gray-400 tracking-[0.3em] text-sm uppercase font-medium"
             >
               Selected Works
             </motion.span>
@@ -83,13 +84,9 @@ const Pro = () => {
 
           <div className="overflow-hidden">
             <motion.h2
-              initial={{ y: "100%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.3,
-                ease: [0.33, 1, 0.68, 1],
-              }}
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-bold text-white leading-tight"
             >
@@ -101,17 +98,9 @@ const Pro = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-12 md:gap-20">
+        <div className="flex flex-col gap-12 md:gap-24">
           {Projects.map((data, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: index * 0.1 }}
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <ProCard {...data} reverse={index % 2 !== 0} />
-            </motion.div>
+            <ProCard key={index} {...data} reverse={index % 2 !== 0} />
           ))}
         </div>
       </div>

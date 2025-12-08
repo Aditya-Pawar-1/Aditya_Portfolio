@@ -1,10 +1,6 @@
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import { motion } from "motion/react";
 import SkillCard from "./SkillCard";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
   const data = [
@@ -28,97 +24,94 @@ const Skills = () => {
       title: "Programming & Technical",
       skill: ["C / C++", "Java", "Python", "DBMS", "Data Structures & Algorithms", "Object-Oriented Programming"],
     },
-{
+    {
       title: "Professional Workflow",
       skill: ["Agile & Scrum", "Code Review", "Technical Documentation", "Version Control (Git Flow)", "Project Management", "Debugging & Troubleshooting"],
     },
   ];
 
-  const sectionRef = useRef(null);
-  const lineRef = useRef(null);
-  const titleRef = useRef(null);
-  const gridRef = useRef(null);
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
-
-      tl.from(lineRef.current, {
-        width: 0,
-        duration: 1,
-        ease: "power3.inOut",
-      }).from(
-        titleRef.current,
-        {
-          y: "100%",
-          opacity: 0,
-          duration: 0.8,
-          ease: "power4.out",
-        },
-        "-=0.5"
-      );
-
-      gsap.from(".skill-card", {
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top 85%",
-        },
-        y: 50,
-        scale: 0.9,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "back.out(1.2)",
-      });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
     },
-    { scope: sectionRef }
-  );
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50, 
+      scale: 0.9 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 50, 
+        damping: 15,
+        duration: 0.8
+      }
+    },
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full py-16 md:py-24 px-6 md:px-[10%] text-white overflow-hidden"
-    >
+    <section className="w-full py-16 md:py-24 px-6 md:px-[10%] text-white overflow-hidden">
       <div className="mb-12 md:mb-20">
+
         <div className="flex items-center gap-4 mb-4">
-          <div
-            ref={lineRef}
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             className="h-[1px] bg-white/40 w-full max-w-[120px] md:max-w-[200px]"
           />
-          <span className="text-slate-300 tracking-[0.3em] text-xs md:text-sm uppercase font-medium">
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-indigo-400 tracking-[0.3em] text-xs md:text-sm uppercase font-medium"
+          >
             Capabilities
-          </span>
+          </motion.span>
         </div>
 
         <div className="overflow-hidden">
-          <h2
-            ref={titleRef}
+          <motion.h2
+            initial={{ y: "100%", opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-3xl md:text-5xl font-bold leading-tight text-white"
           >
             TECHNICAL{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
               ARSENAL
             </span>
-          </h2>
+          </motion.h2>
         </div>
       </div>
 
-      <div
-        ref={gridRef}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7"
       >
         {data.map((item, index) => (
-          <div key={index} className="skill-card h-full">
+          <motion.div key={index} variants={cardVariants} className="h-full">
             <SkillCard {...item} index={index} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
