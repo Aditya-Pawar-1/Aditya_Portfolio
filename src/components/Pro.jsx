@@ -101,10 +101,17 @@ const Pro = () => {
           </div>
         </div>
 
-        {/* Reduced gap but same responsive column layout */}
         <div className="flex flex-col gap-12 md:gap-20">
           {Projects.map((data, index) => (
-            <ProCard key={index} {...data} reverse={index % 2 !== 0} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: index * 0.1 }}
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <ProCard {...data} reverse={index % 2 !== 0} />
+            </motion.div>
           ))}
         </div>
       </div>

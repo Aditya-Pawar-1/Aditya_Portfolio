@@ -173,7 +173,7 @@ const Intro = () => {
   return (
     <section
       ref={root}
-      className="relative min-h-[100vh] w-full overflow-hidden bg-[url(public/assets/images/10016491_27230.svg)] bg-no-repeat bg-top text-white perspective-[1000px]"
+      className="relative min-h-[100vh] w-full overflow-hidden bg-[url(/assets/images/Intro_Background.svg)] bg-no-repeat bg-top text-white perspective-[1000px]"
     >
       <div
         ref={section}
@@ -256,7 +256,7 @@ const Intro = () => {
               style={{ transformStyle: "preserve-3d" }}
             >
               <img
-                src="/assets/images/Intro_Background.jpg"
+                src="/assets/images/Intro_Right_Image.jpg"
                 alt="Abstract Design"
                 className="h-full w-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105"
                 loading="lazy"
