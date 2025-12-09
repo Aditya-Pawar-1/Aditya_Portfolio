@@ -66,7 +66,7 @@ const SocialLink = ({ href, children }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="hover:text-white text-gray-400 transition-colors duration-300 relative group"
+    className="hover:text-white font-normal text-gray-400 transition-colors duration-300 relative group"
   >
     {children}
     <span className="absolute left-0 -bottom-1 w-full h-[1px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>

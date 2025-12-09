@@ -45,7 +45,7 @@ const Layout = () => {
     }, [location]);
 
     return (
-        <div className="bg-black overflow-hidden font-poppins max-w-screen box-border min-h-screen text-white relative uppercase mx-auto select-none md:cursor-none">
+        <div className="bg-black overflow-hidden font-helvetica max-w-screen box-border min-h-screen text-white relative uppercase mx-auto select-none md:cursor-none">
             <CustomCursor />
             <GrainOverlay />
             <div className="relative z-10 w-full">

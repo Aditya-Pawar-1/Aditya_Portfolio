@@ -27,17 +27,17 @@ const Navbar = () => {
 
   const gmailLabelVariants = {
     rest: { opacity: 0, width: 0, x: -6 },
-    hover: { opacity: 1, width: "55px", x: 0 },
+    hover: { opacity: 1, width: "50px", x: 0 },
   };
 
   const linkedinLabelVariants = {
     rest: { opacity: 0, width: 0, x: -6 },
-    hover: { opacity: 1, width: "80px", x: 0 },
+    hover: { opacity: 1, width: "70px", x: 0 },
   };
 
   const resumeLabelVariants = {
     rest: { opacity: 0, width: 0, x: -6 },
-    hover: { opacity: 1, width: "60px", x: 0 },
+    hover: { opacity: 1, width: "70px", x: 0 },
   };
 
   const mobileMenuVariants = {
@@ -230,7 +230,7 @@ const Navbar = () => {
             href="https://github.com/Aditya-Pawar-1"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-4xl font-light hover:text-gray-300 transition-colors"
+            className="text-white text-4xl font-medium hover:text-gray-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             GitHub
@@ -243,7 +243,7 @@ const Navbar = () => {
             href="mailto:aditya@pawaraditya.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-4xl font-light hover:text-gray-300 transition-colors"
+            className="text-white text-4xl font-medium hover:text-gray-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Email
@@ -256,7 +256,7 @@ const Navbar = () => {
             href="https://linkedin.com/in/aditya-pawar-dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-4xl font-light hover:text-gray-300 transition-colors"
+            className="text-white text-4xl font-medium hover:text-gray-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             LinkedIn
@@ -269,7 +269,7 @@ const Navbar = () => {
             href="https://drive.google.com/file/d/1CCQc2CU_NW_v-4X6SdOZY1Cbs_V__-ie/view"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-4xl font-light hover:text-gray-300 transition-colors"
+            className="text-white text-4xl font-medium hover:text-gray-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Resume

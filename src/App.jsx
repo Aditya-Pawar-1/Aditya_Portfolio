@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Layout from "./components/Layout"
 import Home from "./components/Home"
-// import Projects from "./components/Project"
 
 function App() {
   return (

@@ -322,13 +322,13 @@ const Intro = () => {
             <div className="flex items-center gap-4">
               <p
                 ref={labelRef}
-                className="uppercase tracking-[0.25em] text-xs font-medium text-indigo-300"
+                className="uppercase tracking-[0.25em] text-xs font-medium text-indigo-500"
               >
                 who am i?
               </p>
               <div
                 ref={lineRef}
-                className="h-[1px] w-24 bg-indigo-500/50"
+                className="h-[1px] w-24 bg-indigo-500"
               />
             </div>
 
@@ -392,7 +392,7 @@ const Intro = () => {
 
             <div
               ref={floatCard1Ref}
-              className="absolute -top-6 -left-8 md:-left-12 z-30 w-32 md:w-40 p-3 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md shadow-2xl"
+              className="absolute -top-6 -left-6 md:-left-12 z-30 w-32 md:w-40 p-3 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md shadow-2xl"
             >
               <div className="flex gap-1 mb-2">
                 <div className="w-2 h-2 rounded-full bg-red-500" />
@@ -422,7 +422,7 @@ const Intro = () => {
 
             <div
               ref={floatCard2Ref}
-              className="absolute -bottom-8 -right-4 md:-right-10 z-30 w-28 md:w-32 h-32 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center shadow-2xl"
+              className="absolute -bottom-8 -right-4 md:-right-10 z-30 w-32 h-32 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-center shadow-2xl"
             >
               <div className="text-center">
                 <span className="block text-2xl">🎨</span>

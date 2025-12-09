@@ -16,12 +16,13 @@ const Pro = () => {
 
   const Projects = [
     {
-      pathImg: "/assets/images/Mahavitaran_Application_Redesign_Case_Study.jpg",
+      pathVideo: "assets/videos/Mahavitaran_Video.mp4",
       heading: "Mahavitaran App Redesign",
       subheading:
         "A UI/UX case study detailing the design process for a user-centric redesign of the Mahavitaran mobile app, focusing on enhancing information clarity and building a functional service management platform.",
       behance:
         "https://www.behance.net/gallery/235079485/Mahavitaran-Application-Redesign",
+      isMobileApp: true,
     },
     {
       pathImg: "/assets/images/Project_Portal.png",
@@ -39,7 +40,7 @@ const Pro = () => {
       isMobileApp: true,
     },
     {
-      pathImg: "/assets/images/Real_Estate_Website_Case_Study.jpg",
+      pathVideo: "assets/videos/Real_Estate_Video.mp4",
       heading: "Real Estate Website Case Study",
       subheading:
         "UI/UX case study detailing the design process for a user-centric digital real estate rental platform, focusing on enhancing property search, communication, and rental management.",
@@ -69,14 +70,14 @@ const Pro = () => {
               whileInView={{ width: "100%" }}
               transition={{ duration: 1, ease: "easeInOut" }}
               viewport={{ once: true }}
-              className="h-[1px] bg-white/50 w-full max-w-[100px] md:max-w-[220px]"
+              className="h-[1px] bg-indigo-400 w-full max-w-[100px] md:max-w-[220px]"
             />
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-gray-400 tracking-[0.3em] text-sm uppercase font-medium"
+              className="text-indigo-400 tracking-[0.3em] text-sm uppercase font-medium"
             >
               Selected Works
             </motion.span>

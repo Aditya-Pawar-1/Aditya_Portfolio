@@ -70,7 +70,7 @@ const Skills = () => {
             whileInView={{ width: "100%" }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeInOut" }}
-            className="h-[1px] bg-white/40 w-full max-w-[120px] md:max-w-[200px]"
+            className="h-[1px] bg-indigo-400 w-full max-w-[120px] md:max-w-[200px]"
           />
           <motion.span
             initial={{ opacity: 0, x: -20 }}

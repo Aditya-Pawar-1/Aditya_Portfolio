@@ -21,96 +21,55 @@ const Drives = () => {
     const isMobile = useIsMobile();
 
     useGSAP(() => {
-        if (isMobile) {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 70%",
-                    end: "bottom 90%",
-                    toggleActions: "play none none none",
-                }
-            });
+        if (isMobile) return;
 
-            tl.fromTo(lineRef.current,
-                { width: 0 },
-                { width: 100, duration: 0.8, ease: "power2.out" }
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "+=150%",
+                pin: true,
+                scrub: 1,
+                toggleActions: "play none none reverse",
+            }
+        });
+
+        tl.fromTo(lineRef.current,
+            { width: 0 },
+            { width: "100%", duration: 1, ease: "power3.inOut" }
+        )
+            .fromTo(".drive-intro-text",
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 1 },
+                "-=0.5"
             )
-                .fromTo(".drive-intro-text",
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 0.8 },
-                    "-=0.4"
-                )
-                .fromTo([heading1Ref.current, heading2Ref.current],
-                    { opacity: 0, y: 40 },
-                    { opacity: 1, y: 0, duration: 0.8, stagger: 0.2 },
-                    "-=0.4"
-                )
-                .fromTo(descRef.current,
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 0.8 },
-                    "-=0.4"
-                );
-
-            gsap.to(splineContainerRef.current, {
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                },
-                y: -50,
-                opacity: 0.2,
-            });
-
-        } else {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top top",
-                    end: "+=150%",
-                    pin: true,
-                    scrub: 1,
-                    toggleActions: "play none none reverse",
-                }
-            });
-
-            tl.fromTo(lineRef.current,
-                { width: 0 },
-                { width: "100%", duration: 1, ease: "power3.inOut" }
+            .fromTo(heading1Ref.current,
+                { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)", y: 50 },
+                { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0, duration: 2, ease: "power2.out" }
             )
-                .fromTo(".drive-intro-text",
-                    { opacity: 0, y: 20 },
-                    { opacity: 1, y: 0, duration: 1 },
-                    "-=0.5"
-                )
-                .fromTo(heading1Ref.current,
-                    { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)", y: 50 },
-                    { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0, duration: 2, ease: "power2.out" }
-                )
-                .fromTo(heading2Ref.current,
-                    { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)", y: 50 },
-                    { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0, duration: 2, ease: "power2.out" },
-                    "-=1.5"
-                )
-                .fromTo(descRef.current,
-                    { opacity: 0, y: 30 },
-                    { opacity: 1, y: 0, duration: 1.5 },
-                    "-=1"
-                );
+            .fromTo(heading2Ref.current,
+                { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)", y: 50 },
+                { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0, duration: 2, ease: "power2.out" },
+                "-=1.5"
+            )
+            .fromTo(descRef.current,
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 1.5 },
+                "-=1"
+            );
 
-            gsap.to(splineContainerRef.current, {
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top top",
-                    end: "+=150%",
-                    scrub: 1.5,
-                },
-                y: -100,
-                scale: 1.15,
-                rotation: 5,
-                ease: "none"
-            });
-        }
+        gsap.to(splineContainerRef.current, {
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "+=150%",
+                scrub: 1.5,
+            },
+            y: -100,
+            scale: 1.15,
+            rotation: 5,
+            ease: "none"
+        });
     }, { scope: containerRef, dependencies: [isMobile] });
 
     useGSAP(() => {
@@ -162,17 +121,17 @@ const Drives = () => {
                     <div className="mb-8 md:mb-16">
                         <div className="flex items-center gap-4 mb-4">
                             {isMobile ? (
-                                <span className="text-indigo-400 font-mono text-xs md:text-sm tracking-widest uppercase">
+                                <span className="text-indigo-500 font-mono text-xs md:text-sm tracking-widest uppercase">
                                     Core <br /> Philosophy
                                 </span>
                             ) : (
-                                <span className="text-indigo-400 font-mono text-xs md:text-sm tracking-widest uppercase">
+                                <span className="text-indigo-500 font-mono text-xs md:text-sm tracking-widest uppercase">
                                     Core Philosophy
                                 </span>
                             )}
                             <div ref={lineRef} className="h-[1px] bg-gradient-to-r from-indigo-500 to-transparent w-[60px] md:w-full md:max-w-[200px]" />
                         </div>
-                        <h3 className="drive-intro-text text-lg md:text-2xl text-slate-400 font-light tracking-wide">
+                        <h3 className={`drive-intro-text text-lg md:text-2xl text-slate-400 font-normal tracking-wide ${isMobile ? '' : 'opacity-0'}`}>
                             Bridging the gap between
                         </h3>
                     </div>
@@ -181,7 +140,7 @@ const Drives = () => {
                         <div className="overflow-hidden">
                             <h2
                                 ref={heading1Ref}
-                                className="text-[12vw] sm:text-[4.5rem] md:text-[5rem] lg:text-[9rem] font-black text-white leading-[0.9] tracking-tighter will-change-transform"
+                                className="text-[12vw] sm:text-[4rem] md:text-[5rem] lg:text-[8rem] font-neue-condensed font-black text-white leading-[0.9] tracking-tighter will-change-transform"
                             >
                                 USER EXPERIENCE
                             </h2>
@@ -190,9 +149,9 @@ const Drives = () => {
                         <div className="overflow-hidden">
                             <h2
                                 ref={heading2Ref}
-                                className="text-[12vw] sm:text-[4.5rem] md:text-[5rem] lg:text-[9rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white leading-[0.9] tracking-tighter md:ml-32 will-change-transform"
+                                className="text-[12vw] sm:text-[4rem] md:text-[5rem] lg:text-[8rem] font-neue-condensed font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white leading-[0.9] tracking-tighter md:ml-32 will-change-transform"
                             >
-                                <span className={`text-indigo-500 font-light italic text-[0.5em] align-middle mr-2 md:mr-4 ${isMobile ? 'block mb-2' : 'inline'}`}>&</span>
+                                <span className={`text-indigo-500 font-normal italic sm:text-[4rem] md:text-[5rem] lg:text-[8rem] mr-2 md:mr-4 ${isMobile ? 'block mb-2' : 'inline'}`}>&</span>
                                 ENGINEERING
                             </h2>
                         </div>

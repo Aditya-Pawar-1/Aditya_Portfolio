@@ -83,14 +83,14 @@ const SkillCard = ({ title, skill, index }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <h4 className="text-lg md:text-xl font-semibold mb-4 text-white">
+      <h4 className="text-lg md:text-xl font-bold mb-4 text-white">
         {title}
       </h4>
       <div className="flex flex-wrap gap-2">
         {skill.map((item, idx) => (
           <span
             key={idx}
-            className="px-3 py-1 text-xs md:text-base text-gray-300 bg-black/30 rounded-full border border-white/10 transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white cursor-default"
+            className="px-3 py-1 text-xs md:text-base font-normal text-gray-300 bg-black/30 rounded-full border border-white/10 transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white cursor-default"
           >
             {item}
           </span>

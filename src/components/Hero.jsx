@@ -151,10 +151,10 @@ const Hero = ({ startAnimation }) => {
         </Suspense>
       </div>
 
-      <div className="flex flex-col z-50 h-full w-full pb-32 md:pb-4 text-white absolute items-center justify-center md:justify-end pointer-events-none">
+      <div className="flex flex-col z-50 h-full w-full pb-32 md:pb-[4rem] text-white absolute items-center justify-center md:justify-end pointer-events-none">
         <div
           ref={heading}
-          className="flex justify-center text-[18vw] md:text-[10rem] lg:text-[16rem] font-bold uppercase leading-none tracking-tighter"
+          className="flex justify-center text-[18vw] md:text-[10rem] lg:text-[16rem] font-neue font-black uppercase leading-none"
         >
           {["a", "d", "i", "t", "y", "a"].map((char, i) => (
             <span
@@ -166,8 +166,8 @@ const Hero = ({ startAnimation }) => {
           ))}
         </div>
 
-        <p className="hero-tagline mt-2 md:mt-6 text-[3vw] md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase text-white/70 font-light">
-          CREATIVE &nbsp; <span className="text-blue-400">•</span> &nbsp;
+        <p className="hero-tagline font-neue font-light md:font-bold mt-2 md:mt-6 text-[3vw] md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase text-white/70">
+          CREATIVE &nbsp; <span className="text-white">•</span> &nbsp;
           DEVELOPER
         </p>
       </div>

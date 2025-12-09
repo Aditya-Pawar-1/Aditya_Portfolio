@@ -1,12 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quantico:ital@1&display=swap');
 @import "tailwindcss";
 
-@theme {
-    --font-poppins: "Poppins", sans-serif; 
-    --font-quantico: "Quantico", sans-serif; 
-  }
+/* --- 1. Standard Helvetica (Previous) --- */
+@font-face {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Helvetica Light'), url('/fonts/helvetica-light-587ebe5a59211.woff') format('woff');
+}
 
+@font-face {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Helvetica'), url('/fonts/Helvetica.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Helvetica Bold'), url('/fonts/Helvetica-Bold.woff') format('woff');
+}
+
+/* --- 2. Neue Helvetica BQ (New - Non-Italic Only) --- */
+/* Light (300) */
+@font-face {
+  font-family: 'Neue Helvetica BQ';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Neue Helvetica BQ Regular'), url('/fonts/NeueHelveticaBQLight.woff') format('woff');
+}
+
+/* Medium (500) */
+@font-face {
+  font-family: 'Neue Helvetica BQ';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Neue Helvetica BQ Regular'), url('/fonts/NeueHelveticaBQMedium.woff') format('woff');
+}
+
+/* Bold (700) */
+@font-face {
+  font-family: 'Neue Helvetica BQ';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Neue Helvetica BQ Regular'), url('/fonts/NeueHelveticaBQBold.woff') format('woff');
+}
+
+/* Heavy (800) */
+@font-face {
+  font-family: 'Neue Helvetica BQ';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Neue Helvetica BQ Regular'), url('/fonts/NeueHelveticaBQHeavy.woff') format('woff');
+}
+
+/* Black (900) */
+@font-face {
+  font-family: 'Neue Helvetica BQ';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Neue Helvetica BQ Regular'), url('/fonts/NeueHelveticaBQBlack.woff') format('woff');
+}
+
+/* --- 3. Neue Helvetica Condensed --- */
+@font-face {
+  font-family: 'Neue Helvetica Condensed';
+  font-style: normal;
+  font-weight: 700; /* Bold */
+  src: local('Neue Helvetica Condensed BQ Regular'), url('/fonts/NeueHelveticaCondensedBQBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Neue Helvetica Condensed';
+  font-style: normal;
+  font-weight: 400; /* Roman/Normal */
+  src: local('Neue Helvetica Condensed BQ Regular'), url('/fonts/NeueHelveticaCondensedBQRoman.woff') format('woff');
+}
+
+/* --- 4. Tailwind Configuration --- */
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+  --font-helvetica: "Helvetica", "Poppins", sans-serif;
+  --font-neue: "Neue Helvetica BQ", "Helvetica", sans-serif;
+  --font-neue-condensed: "Neue Helvetica Condensed", "Helvetica", sans-serif;
+}
+
+/* --- Utilities --- */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -25,7 +106,6 @@
     cursor: grabbing;
 }
 
-/* 3D Utilities */
 .perspective-1000 {
     perspective: 1000px;
 }
