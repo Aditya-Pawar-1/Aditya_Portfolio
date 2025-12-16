@@ -41,12 +41,10 @@ const Pro = () => {
     },
     {
       pathVideo: "assets/videos/Real_Estate_Video.mp4",
-      heading: "Real Estate Website Case Study",
-      subheading:
-        "UI/UX case study detailing the design process for a user-centric digital real estate rental platform, focusing on enhancing property search, communication, and rental management.",
-      behance:
-        "https://www.behance.net/gallery/194289569/Real-Estate-Webite-Project-Case-Study",
-    },
+      heading: "Real Estate Case Study",
+      subheading: "UI/UX case study on designing a user-centric real estate rental platform, enhancing property search, communication, and management.",
+      behance: "https://www.behance.net/gallery/194289569/Real-Estate-Webite-Project-Case-Study",
+    }
   ];
 
   return (
@@ -59,7 +57,16 @@ const Pro = () => {
 
       <motion.div
         style={{ y: isMobile ? 0 : glowY }}
-        className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none opacity-40 mix-blend-screen"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">

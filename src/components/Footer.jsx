@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,7 +7,6 @@ import useIsMobile from '../hooks/useIsMobile';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Footer = () => {
-  const isMobile = useIsMobile();
   const containerRef = useRef(null);
   const textRef = useRef(null);
 
@@ -53,8 +52,8 @@ const Footer = () => {
           <p className="text-gray-600 text-xs mt-4">© 2025 Aditya Pawar. All rights reserved.</p>
         </div>
 
-        <div className="hidden md:flex w-full md:w-auto justify-end md:justify-center">
-          <MagneticButton />
+        <div className="hidden md:flex w-full md:w-auto justify-end md:justify-center pr-10 pb-10">
+          <GravityCube />
         </div>
       </div>
     </div>
@@ -73,52 +72,127 @@ const SocialLink = ({ href, children }) => (
   </a>
 )
 
-const MagneticButton = () => {
-  const buttonRef = useRef(null);
+const GravityCube = () => {
+    const containerRef = useRef(null);
+    const cubeRef = useRef(null);
+    const floatRef = useRef(null);
 
-  useGSAP(() => {
-    const button = buttonRef.current;
-    if (!button) return;
+    useGSAP(() => {
+        const container = containerRef.current;
+        const cube = cubeRef.current;
+        const floatGroup = floatRef.current;
 
-    const xTo = gsap.quickTo(button, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
-    const yTo = gsap.quickTo(button, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
+        gsap.to(floatGroup, {
+            y: -20,
+            duration: 2.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
 
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = button.getBoundingClientRect();
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
+        const tumbleTween = gsap.to(cube, {
+            rotationX: 360,
+            rotationY: 360,
+            duration: 20,
+            repeat: -1,
+            ease: "none"
+        });
 
-      xTo(x * 0.4);
-      yTo(y * 0.4);
-    };
+        const xTo = gsap.quickTo(container, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
+        const yTo = gsap.quickTo(container, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
 
-    const handleMouseLeave = () => {
-      xTo(0);
-      yTo(0);
-    };
+        const handleMouseMove = (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = container.getBoundingClientRect();
+            
+            const x = clientX - (left + width / 2);
+            const y = clientY - (top + height / 2);
 
-    button.addEventListener("mousemove", handleMouseMove);
-    button.addEventListener("mouseleave", handleMouseLeave);
+            xTo(x * 0.5);
+            yTo(y * 0.5);
+        };
 
-    return () => {
-      button.removeEventListener("mousemove", handleMouseMove);
-      button.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
+        const handleMouseEnter = () => {
+            tumbleTween.pause();
+            gsap.to(cube, {
+                rotationX: 0,
+                rotationY: 0,
+                scale: 1.1,
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            });
+            gsap.to(floatGroup, { y: 0, duration: 0.5 }); 
+        };
 
-  return (
-    <div className="p-10 flex justify-center items-center">
-      <a
-        href="mailto:aditya@pawaraditya.com"
-        ref={buttonRef}
-        className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white text-black font-bold text-lg md:text-xl flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)] z-50 pointer-events-auto"
-      >
-        Let's Talk ↗
-      </a>
-    </div>
-  );
-}
+        const handleMouseLeave = () => {
+            xTo(0);
+            yTo(0);
+            
+            gsap.to(cube, {
+                scale: 1,
+                duration: 0.5,
+                onComplete: () => {
+                    tumbleTween.play();
+                }
+            });
+
+            gsap.to(floatGroup, {
+                y: -20,
+                duration: 2.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        };
+
+        container.addEventListener("mousemove", handleMouseMove);
+        container.addEventListener("mouseenter", handleMouseEnter);
+        container.addEventListener("mouseleave", handleMouseLeave);
+
+        return () => {
+            container.removeEventListener("mousemove", handleMouseMove);
+            container.removeEventListener("mouseenter", handleMouseEnter);
+            container.removeEventListener("mouseleave", handleMouseLeave);
+        };
+
+    }, { scope: containerRef });
+
+    const faceBase = "absolute inset-0 flex items-center justify-center border border-white/20 bg-white/5 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.05)]";
+    
+    return (
+        <div ref={containerRef} className="perspective-[1000px] w-32 h-32 cursor-pointer pointer-events-auto z-50">
+            <div ref={floatRef} className="w-full h-full">
+                <div 
+                    ref={cubeRef} 
+                    className="w-full h-full relative [transform-style:preserve-3d]"
+                >
+                    <a href="mailto:aditya@pawaraditya.com" className={`${faceBase} translate-z-[64px] group`}>
+                        <span className="text-white font-bold text-lg tracking-wider group-hover:scale-110 transition-transform">
+                            Let's Talk
+                        </span>
+                    </a>
+
+                    <div className={`${faceBase} -translate-z-[64px] rotate-y-180`}>
+                        <span className="text-white/30 text-2xl">✉️</span>
+                    </div>
+
+                    <div className={`${faceBase} translate-x-[64px] rotate-y-90`}>
+                        <span className="text-white/30">Get in touch</span>
+                    </div>
+
+                    <div className={`${faceBase} -translate-x-[64px] -rotate-y-90`}>
+                        <span className="text-white/30">Connect</span>
+                    </div>
+
+                    <div className={`${faceBase} -translate-y-[64px] rotate-x-90`}></div>
+
+                    <div className={`${faceBase} translate-y-[64px] -rotate-x-90`}></div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 const FloatingPills = () => {
   const isMobile = useIsMobile();

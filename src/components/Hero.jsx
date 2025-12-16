@@ -29,6 +29,7 @@ const Hero = ({ startAnimation }) => {
       opacity: 0,
       duration: 1.2,
       stagger: 0.05,
+      delay: 0.5,
       ease: "power4.out",
     }).from(
       ".hero-tagline",

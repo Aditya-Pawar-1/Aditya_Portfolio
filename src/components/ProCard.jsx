@@ -14,9 +14,7 @@ const ProCard = ({
   isMobileApp,
 }) => {
   const isMobile = useIsMobile();
-
   const videoRef = useRef(null);
-
   const isVideoInView = useInView(videoRef, { amount: 0.3 });
 
   useEffect(() => {
@@ -41,7 +39,6 @@ const ProCard = ({
 
   const imgX = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
   const imgY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
-
   const videoX = useTransform(mouseX, [-0.5, 0.5], [-10, 10]);
   const videoY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
 
@@ -78,6 +75,7 @@ const ProCard = ({
       className={`flex flex-col md:flex-row ${reverse ? "md:flex-row-reverse" : ""
         } items-center gap-8 lg:gap-20 my-4 lg:my-8 perspective-1000`}
     >
+
       <div className="w-full md:w-1/2 flex justify-center perspective-1000">
         <motion.div
           onMouseMove={handleMouseMove}
@@ -89,26 +87,37 @@ const ProCard = ({
           }}
           className="group relative w-full rounded-2xl bg-white/5 border border-white/10 p-3 md:p-4 backdrop-blur-sm transition-colors duration-300 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(0,0,0,0.6)] hover:border-white/20"
         >
-          <div
-            className={`relative overflow-hidden rounded-xl bg-black/50 flex items-center justify-center ${aspectRatioClass}`}
+          <motion.div
+            animate={{ y: [-8, 8] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+            }}
+            className="w-full h-full relative"
           >
-            {pathImg && <motion.img
-              style={{ x: isMobile ? 0 : imgX, y: isMobile ? 0 : imgY, scale: 1.05 }}
-              src={pathImg}
-              alt={heading}
-              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110"
-              loading="lazy"
-            />}
-            {pathVideo && <motion.video
-              ref={videoRef}
-              style={{ x: isMobile ? 0 : videoX, y: isMobile ? 0 : videoY, scale: 1 }}
-              src={pathVideo}
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110"
-            />}
-          </div>
+            <div
+              className={`relative overflow-hidden rounded-xl bg-black/50 flex items-center justify-center ${aspectRatioClass}`}
+            >
+              {pathImg && <motion.img
+                style={{ x: isMobile ? 0 : imgX, y: isMobile ? 0 : imgY, scale: 1.05 }}
+                src={pathImg}
+                alt={heading}
+                className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+                loading="lazy"
+              />}
+              {pathVideo && <motion.video
+                ref={videoRef}
+                style={{ x: isMobile ? 0 : videoX, y: isMobile ? 0 : videoY, scale: 1 }}
+                src={pathVideo}
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+              />}
+            </div>
+          </motion.div>
 
           <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
         </motion.div>
