@@ -305,7 +305,7 @@ const Intro = () => {
             </div>
 
             <div ref={mainCardRef} className="relative z-20 w-full h-full rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)] bg-[#0a0a0a]" style={{ transformStyle: "preserve-3d" }}>
-              <img src="/assets/images/Intro_Right_Image.jpg" alt="Abstract Design" className="h-full w-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105" loading="lazy" />
+              <img src="/assets/images/Cube 2.gif" alt="Abstract Design" className="h-full w-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500 hover:scale-105" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none mix-blend-overlay" />
             </div>
 
